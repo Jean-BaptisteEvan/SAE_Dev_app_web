@@ -16,14 +16,13 @@ class TouiteSearch {
         \iutnc\touiteur\bdd\ConnectionFactory::makeConnection();
         $bdd = \iutnc\touiteur\bdd\ConnectionFactory::$bdd;
 
-        $idUs = 3; //bidon ! à remplacer par la valeur de l'id actuel de l'utilisateur
         $listeTouites = array();
 
-        $requete = "SELECT Touite.texte, Publier.user FROM Touite
+        $requete = "SELECT Touite.texte, Publier.user, Publier.datePublication FROM Touite
                         INNER JOIN Publier ON Publier.idTouite = Touite.idTouite
                         WHERE idUser = ?";
         $rep = $bdd->query($requete);
-        $rep->bindParam(1, $idUs);
+        $rep->bindParam(1, $idUser);
 
         while($ligne=$rep->fetch(PDO::FETCH_NUM)) {
             echo "$ligne[0]";
