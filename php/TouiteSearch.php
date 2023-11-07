@@ -2,8 +2,7 @@
 
 namespace iutnc\touiteur;
 
-require_once 'bdd/ConnectionFactory.php';
-require_once 'Touite.php';
+require_once '../vendor/autoload.php';
 
 use iutnc\touiteur\bdd;
 use iutnc\touiteur;

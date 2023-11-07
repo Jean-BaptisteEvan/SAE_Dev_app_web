@@ -1,2 +1,4 @@
 Vincent : 6, 7, autoloader
 Evan : 8
+Corentin : 1, 4, 5
+Felicien : HTML / CSS
