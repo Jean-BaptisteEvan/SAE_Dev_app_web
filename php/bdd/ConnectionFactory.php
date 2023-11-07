@@ -2,9 +2,6 @@
 
 namespace iutnc\touiteur\bdd;
 
-use Exception;
-use PDO;
-
 /**
  * Class for connecting to the database
  * Usage :
@@ -15,7 +12,7 @@ use PDO;
 class ConnectionFactory {
 
     /**
-     * @var $bdd PDO Stores the connection to the database in a static attribute
+     * @var $bdd \PDO Stores the connection to the database in a static attribute
      */
     public static $bdd;
 
@@ -25,10 +22,10 @@ class ConnectionFactory {
      */
     public static function makeConnection() {
         try {
-            $bdd = new PDO("mysql:host=localhost; dbname=touiteur; charset=utf8","root", "");
+            $bdd = new \PDO("mysql:host=localhost; dbname=touiteur; charset=utf8","root", "");
             $bdd->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             self::$bdd = $bdd;
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             die('erreur: '.$e->getMessage());
         }
     }
