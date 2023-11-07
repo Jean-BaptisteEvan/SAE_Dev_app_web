@@ -1,5 +1,6 @@
 <?php
 
+namespace iutnc\touiteur;
 
 /**
  * Class used to search touites, e.g : every touite posted by someone
