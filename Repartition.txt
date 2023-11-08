@@ -1,7 +1,0 @@
-Vincent : 6, 7, autoloader
-Evan : 8
-Corentin : 1, 2, 3, 4, 5
-Felicien : HTML / CSS
-
-à faire : 11, 12, 13, 14
-Tâches de qualité : 16, 10, 15, 10, 9, 17, 18, 19
