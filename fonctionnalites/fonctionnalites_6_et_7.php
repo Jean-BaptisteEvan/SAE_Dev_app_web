@@ -115,7 +115,7 @@ static function connexion(){
                 $nom = $row[1];
                 $prenom = $row[2];
                 $mail = $row[3];
-                $admin=$row[5];
+                $admin=$row[6];
                 $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo, 'admin' => $admin];
                 session_start();
                 $_SESSION['user'] = $tabUser;
