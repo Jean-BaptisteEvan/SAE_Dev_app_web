@@ -24,12 +24,11 @@ class TouiteSearch {
 
         $listeTouites = array();
 
-        $requete = "SELECT Publier.datePublication, User.pseudo, Touite.texte FROM Touite
-                        INNER JOIN Publier ON Publier.idTouite = Touite.idTouite
-                        INNER JOIN User ON User.idUser = Publier.idUser";
+        $requete = "SELECT Touite.datePublication, User.pseudo, Touite.texte FROM Touite
+                        INNER JOIN User ON User.idUser = Touite.idUser";
         $rep = $bdd->prepare($requete);
         $rep->execute();
-        while($ligne=$rep->fetch(PDO::FETCH_NUM)) {
+        while($ligne=$rep->fetch()) {
             $touite = new touiteur\Touite($ligne[0], $ligne[1], $ligne[2]);
             array_push($listeTouites, $touite);
             echo "$ligne[0], $ligne[1], $ligne[2]<br>";
@@ -50,14 +49,13 @@ class TouiteSearch {
 
         $listeTouites = array();
 
-        $requete = "SELECT Publier.datePublication, User.pseudo, Touite.texte FROM Touite
-                        INNER JOIN Publier ON Publier.idTouite = Touite.idTouite
-                        INNER JOIN User ON User.idUser = Publier.idUser
-                        WHERE Publier.idUser = ? ORDER BY datePublication ASC";
+        $requete = "SELECT Touite.datePublication, User.pseudo, Touite.texte FROM Touite
+                        INNER JOIN User ON User.idUser = Touite.idUser
+                        WHERE Touite.idUser = ? ORDER BY datePublication ASC";
         $rep = $bdd->prepare($requete);
         $rep->bindParam(1, $idUser);
         $rep->execute();
-        while($ligne=$rep->fetch(PDO::FETCH_NUM)) {
+        while($ligne=$rep->fetch()) {
             $touite = new touiteur\Touite($ligne[0], $ligne[1], $ligne[2]);
             array_push($listeTouites, $touite);
             echo "$ligne[0], $ligne[1], $ligne[2]<br>";
@@ -78,19 +76,18 @@ class TouiteSearch {
 
         $listeTouites = array();
 
-        $requete = "SELECT Publier.datePublication, User.pseudo, Touite.texte, Tag.tagLibelle FROM Touite
-                        INNER JOIN Publier ON Publier.idTouite = Touite.idTouite
-                        INNER JOIN User ON User.idUser = Publier.idUser
+        $requete = "SELECT Touite.datePublication, User.pseudo, Touite.texte, Tag.tagLibelle FROM Touite
+                        INNER JOIN User ON User.idUser = Touite.idUser
                         INNER JOIN TagJoint ON TagJoint.idTouite = Touite.idTouite
                         INNER JOIN Tag ON Tag.idTag = TagJoint.idTag 
                         WHERE Tag.tagLibelle = ? ORDER BY datePublication ASC";
         $rep = $bdd->prepare($requete);
         $rep->bindParam(1, $tagLibelle);
         $rep->execute();
-        while($ligne=$rep->fetch(PDO::FETCH_NUM)) {
-            $touite = new touiteur\Touite($ligne[0], $ligne[1], $ligne[2]);
+        while($ligne=$rep->fetch()) {
+            $touite = new touiteur\Touite($ligne[0], $ligne[1], $ligne[3] . $ligne[2]);
             array_push($listeTouites, $touite);
-            echo "$ligne[0], $ligne[1], $ligne[2]<br>";
+            echo "$ligne[0], $ligne[1], #$ligne[3] $ligne[2]<br>";
         }
         $rep->closeCursor();
 
@@ -98,6 +95,6 @@ class TouiteSearch {
     }
 }
 
-//TouiteSearch::getAllTouites();
-//TouiteSearch::getTouitesPostedBy(3);
+TouiteSearch::getAllTouites();
+TouiteSearch::getTouitesPostedBy(3);
 TouiteSearch::getTouitesTagedBy("Chat");
