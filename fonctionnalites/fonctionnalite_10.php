@@ -1,6 +1,7 @@
 <?php
 namespace iutnc\fonctionnalites;
 use \PDO;
+use \Exception;
 class supression{
 
 /**
@@ -25,7 +26,7 @@ static function delete(){
                 </form>';
             echo $content;
         }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $idtouite = supression::test_input($_POST["idtouite"]);
+            $idtouite = self::test_input($_POST["idtouite"]);
             try{
                 $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
             } catch(Exception $e){
@@ -35,15 +36,15 @@ static function delete(){
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$idtouite);
             $resultset->execute();
-            
+
             $sql="DELETE from touite where idTouite = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$idtouite);
             $resultset->execute();
-            echo "Touite suprimé";
+            echo "<p>Touite suprimé</p>";
         }
     } else{
-        echo "Veuillez vous connecter!";
+        echo "<p>Veuillez vous connecter!</p>";
     }
 }
 
