@@ -1,3 +1,13 @@
+
+body {
+    font-family: "Lato", sans-serif;
+    background-color: #222729;
+    margin-left: 5%;
+    padding: 5%;
+    width: 100%;
+    height: 100%;
+}
+
 .imgheader
 {
 
@@ -42,14 +52,7 @@ nav {
     z-index: 1000;
     display: block;
 }
-body {
-    font-family: "Lato", sans-serif;
-    background-color: #222729;
-    margin: 0;
-    padding: 5%;
-    width: 100%;
-    height: 100%;
-}
+
 .container {
     display: flex;
 
@@ -103,3 +106,28 @@ h3{
     }
 
 }
+
+.search {
+    border: 1px silver solid;
+    width: 60%;
+
+    color: silver;
+    margin-bottom: 0;
+
+    margin-left: 10%;
+
+}
+
+#posteur {
+    color: dodgerblue;
+}
+
+#tag {
+    color: blue;
+}
+
+
+
+
+
+
