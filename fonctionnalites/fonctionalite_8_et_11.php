@@ -27,15 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	$idUs = 3; //bidon ! à remplacer par la valeur de l'id actuel de l'utilisateur
     $bdd->exec("INSERT INTO touite (texte,datePublication,idUser) VALUES ('$texte','$dateAct',$idUs)");
     if (count($tabMes) !== 0){
-        var_dump($tabMes);
         for ($i=1;$i<count($tabMes);$i++){
             var_dump("SELECT idTag FROM Tag WHERE tagLibelle like '$tabMes[$i]'");
-            echo '<br>';
             $repTag = $bdd->query("SELECT idTag FROM Tag WHERE tagLibelle like '$tabMes[$i]'");
             $idTag = $repTag->fetch()['idTag'];
-            echo "<br>";
-            var_dump($idTag);
-            echo "<br>";
             if(is_null($idTag)){
                 $bdd->exec("INSERT INTO Tag (tagLibelle,tagDesc) VALUES ('$tabMes[$i]',' ')");
                 $repIdTag = $bdd->query("SELECT idTag FROM Tag WHERE idTag >= ALL(SELECT idTag FROM Tag)");
