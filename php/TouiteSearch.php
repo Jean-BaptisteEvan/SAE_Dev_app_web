@@ -6,7 +6,6 @@ require_once '../vendor/autoload.php';
 
 use iutnc\touiteur\bdd;
 use iutnc\touiteur;
-use PDO;
 
 /**
  * Class used to search touites, e.g : every touite posted by someone
@@ -67,7 +66,7 @@ class TouiteSearch {
 
     /**
      * Return every touites with a specific tag
-     * @param int $tagLibelle the libelle of the tag in question
+     * @param string $tagLibelle the libelle of the tag in question (e.g chat)
      * @return array the array containing the touites
      */
     public static function getTouitesTagedBy(string $tagLibelle) : array {
