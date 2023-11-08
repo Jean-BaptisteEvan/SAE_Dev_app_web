@@ -17,20 +17,13 @@ foreach ($listeTouites as $k => $v) {
     array_push($touitesRendered, TouiteRenderer::renderLong($v));
 }
 
-for ($i = 4; $i < 9; $i++) {
-    echo $touitesRendered[$i];
-}
-
-//TouiteSearch::getAllTouites();
-//TouiteSearch::getTouitesPostedBy(3);
-//TouiteSearch::getTouitesTagedBy("Chat");
-
-/*
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if ($_GET['action'] == '') {
-
+function afficherTouites(array $l, int $debut, int $fin) {
+    for ($i = $debut; $i < $fin; $i++) {
+        echo $l[$i];
     }
-} elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
-
 }
-*/
+
+// http://localhost/SAE_Dev_app_web/php/main.php?debut=4&&fin=9
+if (isset($_GET['debut']) or isset($_GET['fin'])) {
+    afficherTouites($touitesRendered, $_GET['debut'], $_GET['fin']);
+}
