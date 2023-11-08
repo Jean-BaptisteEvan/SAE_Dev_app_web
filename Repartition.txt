@@ -1,4 +1,4 @@
-Vincent : 6, 7, 10, autoloader
+Vincent : 6, 7, 10, déconnexion, autoloader
 Evan : 8,11,17,18
 Corentin : 1, 4, 5
 Felicien : HTML / CSS
