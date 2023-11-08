@@ -23,16 +23,26 @@ class TouiteSearch {
 
         $listeTouites = array();
 
-        $requete = "SELECT Touite.datePublication, User.pseudo, Touite.texte FROM Touite
-                        INNER JOIN User ON User.idUser = Touite.idUser";
-        $rep = $bdd->prepare($requete);
-        $rep->execute();
-        while($ligne=$rep->fetch()) {
-            $touite = new touiteur\Touite($ligne[0], $ligne[1], $ligne[2]);
+        $requete1 = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
+                                            INNER JOIN User ON User.idUser = Touite.idUser");
+        $requete1->execute();
+        while($ligne1=$requete1->fetch()) {
+            $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
+
+            // Add the tags related to this touite
+            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc FROM Tag
+                                                INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
+                                                WHERE TagJoint.idTouite = ?");
+            $requete2->bindParam(1, $ligne1[3]);
+            $requete2->execute();
+            while($ligne2=$requete2->fetch()) {
+                $touite->ajouterTag(new Tag($ligne2[0], $ligne2[1]));
+            }
+            $requete2->closeCursor();
+
             array_push($listeTouites, $touite);
-            echo "$ligne[0], $ligne[1], $ligne[2]<br>";
         }
-        $rep->closeCursor();
+        $requete1->closeCursor();
 
         return $listeTouites;
     }
@@ -48,18 +58,28 @@ class TouiteSearch {
 
         $listeTouites = array();
 
-        $requete = "SELECT Touite.datePublication, User.pseudo, Touite.texte FROM Touite
-                        INNER JOIN User ON User.idUser = Touite.idUser
-                        WHERE Touite.idUser = ? ORDER BY datePublication ASC";
-        $rep = $bdd->prepare($requete);
-        $rep->bindParam(1, $idUser);
-        $rep->execute();
-        while($ligne=$rep->fetch()) {
-            $touite = new touiteur\Touite($ligne[0], $ligne[1], $ligne[2]);
+        $requete1 = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
+                                            INNER JOIN User ON User.idUser = Touite.idUser
+                                            WHERE Touite.idUser = ? ORDER BY datePublication ASC");
+        $requete1->bindParam(1, $idUser);
+        $requete1->execute();
+        while($ligne1=$requete1->fetch()) {
+            $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
+
+            // Add the tags related to this touite
+            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc FROM Tag
+                                                INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
+                                                WHERE TagJoint.idTouite = ?");
+            $requete2->bindParam(1, $ligne1[3]);
+            $requete2->execute();
+            while($ligne2=$requete2->fetch()) {
+                $touite->ajouterTag(new Tag($ligne2[0], $ligne2[1]));
+            }
+            $requete2->closeCursor();
+
             array_push($listeTouites, $touite);
-            echo "$ligne[0], $ligne[1], $ligne[2]<br>";
         }
-        $rep->closeCursor();
+        $requete1->closeCursor();
         
         return $listeTouites;
     }
@@ -75,25 +95,31 @@ class TouiteSearch {
 
         $listeTouites = array();
 
-        $requete = "SELECT Touite.datePublication, User.pseudo, Touite.texte, Tag.tagLibelle FROM Touite
-                        INNER JOIN User ON User.idUser = Touite.idUser
-                        INNER JOIN TagJoint ON TagJoint.idTouite = Touite.idTouite
-                        INNER JOIN Tag ON Tag.idTag = TagJoint.idTag 
-                        WHERE Tag.tagLibelle = ? ORDER BY datePublication ASC";
-        $rep = $bdd->prepare($requete);
-        $rep->bindParam(1, $tagLibelle);
-        $rep->execute();
-        while($ligne=$rep->fetch()) {
-            $touite = new touiteur\Touite($ligne[0], $ligne[1], $ligne[3] . $ligne[2]);
+        $requete1 = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
+                                            INNER JOIN User ON User.idUser = Touite.idUser
+                                            INNER JOIN TagJoint ON TagJoint.idTouite = Touite.idTouite
+                                            INNER JOIN Tag ON Tag.idTag = TagJoint.idTag
+                                            WHERE Tag.tagLibelle = ? ORDER BY datePublication ASC");
+        $requete1->bindParam(1, $tagLibelle);
+        $requete1->execute();
+        while($ligne1=$requete1->fetch()) {
+            $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
+
+            // Add the tags related to this touite
+            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc FROM Tag
+                                                INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
+                                                WHERE TagJoint.idTouite = ?");
+            $requete2->bindParam(1, $ligne1[3]);
+            $requete2->execute();
+            while($ligne2=$requete2->fetch()) {
+                $touite->ajouterTag(new Tag($ligne2[0], $ligne2[1]));
+            }
+            $requete2->closeCursor();
+
             array_push($listeTouites, $touite);
-            echo "$ligne[0], $ligne[1], #$ligne[3] $ligne[2]<br>";
         }
-        $rep->closeCursor();
+        $requete1->closeCursor();
 
         return $listeTouites;
     }
 }
-
-TouiteSearch::getAllTouites();
-TouiteSearch::getTouitesPostedBy(3);
-TouiteSearch::getTouitesTagedBy("Chat");

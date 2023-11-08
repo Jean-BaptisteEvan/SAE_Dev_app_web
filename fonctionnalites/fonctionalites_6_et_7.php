@@ -1,11 +1,13 @@
 <?php
+namespace iutnc\fonctionnalites;
+use \PDO;
 class connec{
 /**
  * This function transforms the data passed into a parameter so that it does not present any security risks.
  * @param mixed $data Data recieved from a form
  * @return mixed $data Data with no security risk
  */
-function test_input(mixed $data) : mixed{
+static function test_input(mixed $data) : mixed{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -15,7 +17,7 @@ function test_input(mixed $data) : mixed{
 /**
  * This function (create account) create a user if the nickname entered in the form is unique.
  */
-function creationCompte(){
+static function creationCompte(){
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $content = '<form action="" method="post">
             <label for="nom">Nom</label>
@@ -32,11 +34,11 @@ function creationCompte(){
             </form>';
         echo $content;
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nom = test_input($_POST["nom"]);
-        $prenom = test_input($_POST["prenom"]);
-        $email = test_input($_POST["email"]);
-        $pseudo = test_input($_POST["pseudo"]);
-        $mdp = test_input($_POST["mdp"]);
+        $nom = connec::test_input($_POST["nom"]);
+        $prenom = connec::test_input($_POST["prenom"]);
+        $email = connec::test_input($_POST["email"]);
+        $pseudo = connec::test_input($_POST["pseudo"]);
+        $mdp = connec::test_input($_POST["mdp"]);
         $truemdp=password_hash($mdp, PASSWORD_DEFAULT,['cost'=> 12]);
         try{
             $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
@@ -81,7 +83,7 @@ function creationCompte(){
 /**
  * This function (log in) put the user's information in the session if he entered the right nickname and password
  */
-function connexion(){
+static function connexion(){
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $content = '<form action="" method="post">
             <label for="pseudo">Pseudo</label>
@@ -92,8 +94,8 @@ function connexion(){
             </form>';
         echo $content;
     }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $pseudo = test_input($_POST["pseudo"]);
-        $mdp = test_input($_POST["mdp"]);
+        $pseudo = connec::test_input($_POST["pseudo"]);
+        $mdp = connec::test_input($_POST["mdp"]);
         try{
             $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
         } catch(Exception $e){
