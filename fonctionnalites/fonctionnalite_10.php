@@ -16,6 +16,9 @@ static function test_input(mixed $data) : mixed{
     return $data;
 }
 
+/**
+ * This function delete a touite from the database and all the links between the tags and the touite
+ */
 static function delete(){
     session_start();
     if(!isset($_SESSION['user'])){

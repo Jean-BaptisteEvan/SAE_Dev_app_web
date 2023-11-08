@@ -102,7 +102,7 @@ static function connexion(){
         } catch(Exception $e){
             die('Erreur : '.$e->getMessage());
         } 
-        $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass from USER where pseudo = ?;";
+        $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass, admin from USER where pseudo = ?;";
         $resultset = $connexion->prepare($sql);
         $resultset->bindParam(1,$pseudo);
         $resultset->execute();
@@ -115,7 +115,8 @@ static function connexion(){
                 $nom = $row[1];
                 $prenom = $row[2];
                 $mail = $row[3];
-                $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo];
+                $admin=$row[5];
+                $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo, 'admin' => $admin];
                 session_start();
                 $_SESSION['user'] = $tabUser;
                 if(isset($_SESSION['user'])){
