@@ -1,5 +1,5 @@
 <?php
-require_once "./fonctionalites_6_et_7.php";
+require_once "./fonctionnalites_6_et_7.php";
 require_once "./fonctionnalite_10.php";
 use iutnc\fonctionnalites\connexion;
 use iutnc\fonctionnalites\supression;
