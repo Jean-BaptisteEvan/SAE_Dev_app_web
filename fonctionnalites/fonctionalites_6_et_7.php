@@ -1,7 +1,8 @@
 <?php
 namespace iutnc\fonctionnalites;
 use \PDO;
-class connec{
+use \Exception;
+class connection{
 /**
  * This function transforms the data passed into a parameter so that it does not present any security risks.
  * @param mixed $data Data recieved from a form
@@ -34,11 +35,11 @@ static function creationCompte(){
             </form>';
         echo $content;
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nom = connec::test_input($_POST["nom"]);
-        $prenom = connec::test_input($_POST["prenom"]);
-        $email = connec::test_input($_POST["email"]);
-        $pseudo = connec::test_input($_POST["pseudo"]);
-        $mdp = connec::test_input($_POST["mdp"]);
+        $nom = self::test_input($_POST["nom"]);
+        $prenom = self::test_input($_POST["prenom"]);
+        $email = self::test_input($_POST["email"]);
+        $pseudo = self::test_input($_POST["pseudo"]);
+        $mdp = self::test_input($_POST["mdp"]);
         $truemdp=password_hash($mdp, PASSWORD_DEFAULT,['cost'=> 12]);
         try{
             $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
@@ -75,7 +76,7 @@ static function creationCompte(){
 
         $connexion=null;
 
-        echo "Utilisateur créer avec succès!";
+        echo "<p>Utilisateur créer avec succès!</p>";
     }
 
 }
@@ -94,8 +95,8 @@ static function connexion(){
             </form>';
         echo $content;
     }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $pseudo = connec::test_input($_POST["pseudo"]);
-        $mdp = connec::test_input($_POST["mdp"]);
+        $pseudo = self::test_input($_POST["pseudo"]);
+        $mdp = self::test_input($_POST["mdp"]);
         try{
             $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
         } catch(Exception $e){
@@ -118,7 +119,7 @@ static function connexion(){
                 session_start();
                 $_SESSION['user'] = $tabUser;
                 if(($_SESSION['user'])){
-                    echo 'Vous vous êtes connecté avec succès!';
+                    echo '<p>Vous vous êtes connecté avec succès!</p>';
                 }
             } else{
                 throw new Exception('Mot de passe invalide');
