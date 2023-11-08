@@ -1,0 +1,17 @@
+ul {
+    border: 3px double black;
+    width: 30%;
+    margin: auto auto 1em auto;
+}
+
+#posteur {
+    color: dodgerblue;
+}
+
+#tag {
+    color: blue;
+}
+
+html {
+    background: lightslategray;
+}

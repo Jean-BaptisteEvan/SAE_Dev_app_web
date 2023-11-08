@@ -17,6 +17,7 @@ static function test_input(mixed $data) : mixed{
 }
 
 static function delete(){
+    session_start();
     if(!isset($_SESSION['user'])){
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $content = '<form action="" method="post">
