@@ -1,20 +1,20 @@
 <?php
-echo '<a href="?action=create">Créer compte</a>'."<br>";
-echo '<a href="?action=connect">Se connecter</a>'."<br>";
-if(isset($_GET['action']) and $_GET['action']==="create"){
-    creationCompte();
-}
-if(isset($_GET['action']) and $_GET['action']==="connect"){
-    connexion();
-}
-
-function test_input($data){
+class connec{
+/**
+ * This function transforms the data passed into a parameter so that it does not present any security risks.
+ * @param mixed $data Data recieved from a form
+ * @return mixed $data Data with no security risk
+ */
+function test_input(mixed $data) : mixed{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 
+/**
+ * This function (create account) create a user if the nickname entered in the form is unique.
+ */
 function creationCompte(){
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $content = '<form action="" method="post">
@@ -74,12 +74,13 @@ function creationCompte(){
         $connexion=null;
 
         echo "Utilisateur créer avec succès!";
-        
-        //echo $nom.'   '.$prenom.'   '.$email.'   '.$mdp.'  ->  '.$truemdp;
     }
 
 }
 
+/**
+ * This function (log in) put the user's information in the session if he entered the right nickname and password
+ */
 function connexion(){
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $content = '<form action="" method="post">
@@ -122,5 +123,6 @@ function connexion(){
             }
         }
     }
+}
 }
 ?>

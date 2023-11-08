@@ -1,5 +1,6 @@
 <?php
-public TouiteRenderer{
+
+class TouiteRenderer {
     function renderCourt($idTouite, $bdd){
 
         $repTxt = $bdd->query("SELECT Texte FROM touite WHERE idTouite = $idTouite ");
@@ -8,4 +9,3 @@ public TouiteRenderer{
         echo "";
     }
 }
-
