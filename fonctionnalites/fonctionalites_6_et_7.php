@@ -2,7 +2,7 @@
 namespace iutnc\fonctionnalites;
 use \PDO;
 use \Exception;
-class connection{
+class connexion{
 /**
  * This function transforms the data passed into a parameter so that it does not present any security risks.
  * @param mixed $data Data recieved from a form
@@ -16,7 +16,7 @@ static function test_input(mixed $data) : mixed{
 }
 
 /**
- * This function (create account) create a user if the nickname entered in the form is unique.
+ * This function (create account) creates a user in the database if the nickname entered in the form is unique.
  */
 static function creationCompte(){
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -82,7 +82,7 @@ static function creationCompte(){
 }
 
 /**
- * This function (log in) put the user's information in the session if he entered the right nickname and password
+ * This function (log in) creates a session with the user's informations if he entered the right nickname and password.
  */
 static function connexion(){
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -118,13 +118,26 @@ static function connexion(){
                 $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo];
                 session_start();
                 $_SESSION['user'] = $tabUser;
-                if(($_SESSION['user'])){
-                    echo '<p>Vous vous êtes connecté avec succès!</p>';
+                if(isset($_SESSION['user'])){
+                    echo '<p>Connexion réussie!</p>';
                 }
             } else{
                 throw new Exception('Mot de passe invalide');
             }
         }
+    }
+}
+
+/**
+ * This function (logs out) disconnects the logged user by deleting the session.
+ */
+static function deconnexion(){
+    session_start();
+    if(isset($_SESSION['user'])){
+        unset($_SESSION['user']);
+        echo "<p>Déconnexion réussie!</p>";
+    } else{
+        echo "<p>Aucun utilisateur n'est connecté</p>";
     }
 }
 }
