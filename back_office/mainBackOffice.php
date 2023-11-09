@@ -11,7 +11,7 @@ try {
 
 }
 if(isset($_SESSION['user'])){
-    if($_SESSION['user']['admin'] === 1){
+    if($_SESSION['user']['admin'] == 1){
         ConnectionFactory::makeConnection();
         $bdd = ConnectionFactory::$bdd;
         gestionBackOffice::genererBackOffice($bdd);
