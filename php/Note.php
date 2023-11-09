@@ -73,6 +73,7 @@ class Note{
                 }else{
                     echo "<p>Impossible de noter le touite</p>";
                 }
+                $connexion=null;
             }
         }else{
             echo "<p>Veuillez vous connecter!</p>";
@@ -83,8 +84,7 @@ class Note{
      * This function return the average rating of a touite using his id
      * @return ?float either the average rating of the selected touite or nothing if the user isn't logged in
      */
-    static function getMoyenne(): ?float{
-        session_start();
+    static function getMoyenne(int $idtouite): ?float{
         $note=null;
         if(isset($_SESSION['user'])){
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -119,11 +119,12 @@ class Note{
                 }else{
                     echo "<p>Aucun touite avec cette id n'existe</p>";
                 }
+                $connexion=null;
             }
         }else{
             echo "<p>Veuillez vous connecter!</p>";
         }
-        return $note;
+    return $note;
     }
 }
 ?>

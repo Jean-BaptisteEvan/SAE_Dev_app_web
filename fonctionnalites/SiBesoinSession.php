@@ -6,6 +6,7 @@ use iutnc\fonctionnalites\connexion;
 use iutnc\touiteur\Supression;
 use iutnc\fonctionnalites\follow;
 use iutnc\touiteur\Note;
+use iutnc\touiteur\Narcissique;
 
 echo '<a href="?action=create">Créer compte</a>'."<br>";
 echo '<a href="?action=connect">Se connecter</a>'."<br>";
@@ -15,6 +16,7 @@ echo '<a href="?action=followuser">Suivre un utilisateur</a>'."<br>";
 echo '<a href="?action=followtag">Suivre un tag</a>'."<br>";
 echo '<a href="?action=noter">Noter un touite</a>'."<br>";
 echo '<a href="?action=note">Voir la moyenne d un touite</a>'."<br>";
+echo '<a href="?action=narc">Narcissique</a>'."<br>";
 
 if(isset($_GET['action']) and $_GET['action']==="create"){
     connexion::creationCompte();
@@ -38,7 +40,19 @@ if(isset($_GET['action']) and $_GET['action']==="noter"){
     Note::noter();
 }
 if(isset($_GET['action']) and $_GET['action']==="note"){
-    echo(Note::getMoyenne());
+    echo '<form action="" method="post">
+        <label for="idtouite">Id du touite</label>
+        <input type="number" name="idtouite" id="idtouite" value="0">
+        <input type="submit" value="Valider">
+        </form>';
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $idtouite=Note::test_input($_POST["idtouite"]);
+        echo(Note::getMoyenne($idtouite));
+    }
+}
+if(isset($_GET['action']) and $_GET['action']==="narc"){
+    Narcissique::displayUsers();
+    //Narcissique::displayTouiteNote();
 }
 
 ?>

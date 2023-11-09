@@ -56,6 +56,7 @@ class follow{
                     $resultset->execute();
                     echo "<p>Utilisateur suivi avec succès!</p>";
                 }
+                $connexion=null;
             }
         }else{
             echo "<p>Veuillez vous connecter!</p>";
@@ -99,6 +100,7 @@ class follow{
                     $resultset->execute();
                     echo "<p>Tag suivi avec succès!</p>";
                 }
+                $connexion=null;
             }
         }else{
             echo "<p>Veuillez vous connecter!</p>";

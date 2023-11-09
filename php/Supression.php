@@ -50,6 +50,7 @@ class Supression{
                 $resultset->bindParam(1,$idtouite);
                 $resultset->execute();
                 echo "<p>Touite suprimé</p>";
+                $connexion=null;
             }
         } else{
             echo "<p>Veuillez vous connecter!</p>";

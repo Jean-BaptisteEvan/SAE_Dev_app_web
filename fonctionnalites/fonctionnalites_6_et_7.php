@@ -77,7 +77,7 @@ class connexion{
             $resultset->bindParam(6,$truemdp);
             $resultset->execute();
 
-            $conexion=null;
+            $connexion=null;
 
             echo "<p>Utilisateur créer avec succès!</p>";
         }
@@ -130,6 +130,7 @@ class connexion{
                     throw new Exception('Mot de passe invalide');
                 }
             }
+            $connexion=null;
         }
     }
 
