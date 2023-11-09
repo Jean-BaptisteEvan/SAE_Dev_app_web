@@ -1,7 +1,12 @@
 <?php
 namespace iutnc\fonctionnalites;
+require_once '../vendor/autoload.php';
+use iutnc\touiteur\bdd\ConnectionFactory;
 use \PDO;
 use \Exception;
+/**
+ * This class is used to rate a touite and to know the average rating of a touite.
+ */
 class note{
 
     /**
@@ -37,11 +42,8 @@ class note{
                 $idtouite=self::test_input($_POST["idtouite"]);
                 $note=self::test_input($_POST["note"]);
                 $iduser=$_SESSION['user']['id'];
-                try{
-                    $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
-                } catch(Exception $e){
-                    die('Erreur : '.$e->getMessage());
-                } 
+                ConnectionFactory::makeConnection();
+                $connexion=ConnectionFactory::$bdd;
 
                 $sql="SELECT idUser from touite where idTouite = ?;";
                 $resultset = $connexion->prepare($sql);
@@ -77,6 +79,10 @@ class note{
         }
     }
 
+    /**
+     * This function return the average rating of a touite using his id
+     * @return ?float either the average rating of the selected touite or nothing if the user isn't logged in
+     */
     static function getMoyenne(): ?float{
         session_start();
         $note=null;
@@ -89,23 +95,29 @@ class note{
                     </form>';
                 echo $content;
             } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                try{
-                    $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
-                } catch(Exception $e){
-                    die('Erreur : '.$e->getMessage());
-                } 
+                ConnectionFactory::makeConnection();
+                $connexion=ConnectionFactory::$bdd;
                 $idtouite=self::test_input($_POST["idtouite"]);
-                $sql="SELECT note from note where idTouite = ?;";
+
+                $sql="SELECT texte from touite where idTouite = ?;";
                 $resultset = $connexion->prepare($sql);
                 $resultset->bindParam(1,$idtouite);
                 $resultset->execute();
-                $nb=$resultset->rowCount();
-                $note=0;
-                while ($row = $resultset->fetch(PDO::FETCH_NUM)){
-                    $note+=$row[0];
-                }
-                if($nb!==0){
-                $note=round($note/$nb, 2);
+                if($resultset->rowCount() > 0){
+                    $sql="SELECT note from note where idTouite = ?;";
+                    $resultset = $connexion->prepare($sql);
+                    $resultset->bindParam(1,$idtouite);
+                    $resultset->execute();
+                    $nb=$resultset->rowCount();
+                    $note=0;
+                    while ($row = $resultset->fetch(PDO::FETCH_NUM)){
+                        $note+=$row[0];
+                    }
+                    if($nb!==0){
+                        $note=round($note/$nb, 2);
+                    }
+                }else{
+                    echo "<p>Aucun touite avec cette id n'existe</p>";
                 }
             }
         }else{
