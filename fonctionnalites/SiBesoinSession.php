@@ -6,7 +6,7 @@ require_once "./fonctionnalite_13_et_14.php";
 use iutnc\fonctionnalites\connexion;
 use iutnc\fonctionnalites\supression;
 use iutnc\fonctionnalites\follow;
-use iutnc\fonctionnalites\Note;
+use iutnc\touiteur\Note;
 
 echo '<a href="?action=create">Créer compte</a>'."<br>";
 echo '<a href="?action=connect">Se connecter</a>'."<br>";
