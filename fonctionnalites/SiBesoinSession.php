@@ -1,10 +1,9 @@
 <?php
 require_once '../vendor/autoload.php';
 require_once "./fonctionnalites_6_et_7.php";
-require_once "./fonctionnalite_10.php";
 require_once "./fonctionnalite_13_et_14.php";
 use iutnc\fonctionnalites\connexion;
-use iutnc\fonctionnalites\supression;
+use iutnc\touiteur\Supression;
 use iutnc\fonctionnalites\follow;
 use iutnc\touiteur\Note;
 
@@ -27,7 +26,7 @@ if(isset($_GET['action']) and $_GET['action']==="deconnect"){
     connexion::deconnexion();
 }
 if(isset($_GET['action']) and $_GET['action']==="delete"){
-    supression::delete();
+    Supression::delete();
 }
 if(isset($_GET['action']) and $_GET['action']==="followuser"){
     follow::followUser();
