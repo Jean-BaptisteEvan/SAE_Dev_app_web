@@ -1,4 +1,5 @@
 <?php
+//fonctionalite sur le post de touite
 try{
     $bdd = new PDO('mysql:host=localhost; dbname=touiteur; charset=utf8','root', "");
 }catch(Exception $e){
@@ -6,11 +7,13 @@ try{
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    //formulaire de post de touite
     echo '<form action="" method="post">
         Message <input type="test" name="msg"><br>
         <input type="submit">
     <form/></br>';
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //recupération
 	$dateAct = date("Y-m-d H:i:s");
     $texte = $_POST['msg'];
     //traitement des tags
@@ -24,19 +27,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     //recuperation de l id du touite
 	$repId = $bdd->query("SELECT idTouite FROM touite WHERE idTouite >= ALL(SELECT idTouite FROM touite)");
 	$idT = $repId->fetch()['idTouite'];
-	$idUs = 3; //bidon ! à remplacer par la valeur de l'id actuel de l'utilisateur
+    //récupération de l'id user
+	$idUs = 3; $_SESSION['user']['id'];
     $bdd->exec("INSERT INTO touite (texte,datePublication,idUser) VALUES ('$texte','$dateAct',$idUs)");
+    //test si le message contenait des tags
     if (count($tabMes) !== 0){
+        //parcours des tags stocké
         for ($i=1;$i<count($tabMes);$i++){
-            var_dump("SELECT idTag FROM Tag WHERE tagLibelle like '$tabMes[$i]'");
             $repTag = $bdd->query("SELECT idTag FROM Tag WHERE tagLibelle like '$tabMes[$i]'");
             $idTag = $repTag->fetch()['idTag'];
+            //si le tag n existe pas
             if(is_null($idTag)){
                 $bdd->exec("INSERT INTO Tag (tagLibelle,tagDesc) VALUES ('$tabMes[$i]',' ')");
                 $repIdTag = $bdd->query("SELECT idTag FROM Tag WHERE idTag >= ALL(SELECT idTag FROM Tag)");
                 $idTag = $repIdTag->fetch()['idTag'];
             }
-            var_dump($idTag);
             $bdd->exec("INSERT INTO TAGJOINT (idTouite,idTag) VALUES ($idT,$idTag)");
         }
     }

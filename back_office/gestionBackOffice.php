@@ -3,12 +3,13 @@
 class gestionBackOffice{
 
     static  function genererBackOffice($bdd){
+        //mise en place de la tete html pour lier le css
         echo '<head>
                   <title>Back Office</title>
                   <link href="backoffice.css" rel="stylesheet" />
              </head>';
-        self::affichBestTag($bdd);
-        self::affichUtilTend($bdd);
+        self::affichBestTag($bdd);//methode d'affichage des tags les plus utilisé
+        self::affichUtilTend($bdd);//methode d'affichages des utilisateurs les plus suivi
     }
     static function affichBestTag($bdd){
         $res18 = $bdd->query("Select tag.tagLibelle,count(tagjoint.idTag) 
