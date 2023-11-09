@@ -36,10 +36,10 @@ if(isset($_GET['action']) and $_GET['action']==="followtag"){
     follow::followTag();
 }
 if(isset($_GET['action']) and $_GET['action']==="noter"){
-    note::noter();
+    Note::noter();
 }
 if(isset($_GET['action']) and $_GET['action']==="note"){
-    echo(note::getMoyenne());
+    echo(Note::getMoyenne());
 }
 
 ?>
