@@ -18,10 +18,16 @@ foreach ($listeTouites as $k => $v) {
 }
 
 function afficherTouites(array $l, int $debut, int $fin) {
+    // In case we exceed the length of the array
+    if ($fin > count($l)) {
+        $fin = count($l);
+    }
     for ($i = $debut; $i < $fin; $i++) {
         echo $l[$i];
     }
 }
+
+//echo "<img src='Image/chat.jpg'>";
 
 // http://localhost/SAE_Dev_app_web/php/main.php?debut=4&&fin=9
 if (isset($_GET['debut']) or isset($_GET['fin'])) {
