@@ -1,12 +1,12 @@
 <?php
+require_once '../vendor/autoload.php';
 require_once "./fonctionnalites_6_et_7.php";
 require_once "./fonctionnalite_10.php";
 require_once "./fonctionnalite_13_et_14.php";
-require_once "./note.php";
 use iutnc\fonctionnalites\connexion;
 use iutnc\fonctionnalites\supression;
 use iutnc\fonctionnalites\follow;
-use iutnc\fonctionnalites\note;
+use iutnc\fonctionnalites\Note;
 
 echo '<a href="?action=create">Créer compte</a>'."<br>";
 echo '<a href="?action=connect">Se connecter</a>'."<br>";
