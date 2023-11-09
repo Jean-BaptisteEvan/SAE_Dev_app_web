@@ -34,11 +34,15 @@ class TouiteRenderer {
             $repTags .= "#{$v->getLibelle()} ";
         }
 
-        return "<ul class='search'>par <a id='posteur' href='https://fr.wikipedia.org/wiki/Chat#/media/Fichier:Collage_of_Six_Cats-02.jpg'>{$touite->getPosteur()}</a>
-                <dd><a id='tag' href='https://fr.wikipedia.org/wiki/Chat#/media/Fichier:Collage_of_Six_Cats-02.jpg'>$repTags</a> {$touite->getTexte()}</dd>
-                <dd>{$touite->getImage()->getChemin()}</dd>
-                <br>
-                <dd>{$touite->getDate()} note : {$touite->getNote()}
-                </ul>";
+        $res = "<ul class='search'>par <a id='posteur' href='https://fr.wikipedia.org/wiki/Chat#/media/Fichier:Collage_of_Six_Cats-02.jpg'>{$touite->getPosteur()}</a>
+                <dd><a id='tag' href='https://fr.wikipedia.org/wiki/Chat#/media/Fichier:Collage_of_Six_Cats-02.jpg'>$repTags</a> {$touite->getTexte()}</dd>";
+
+        // If there is a piture associated with the touite
+        if (!is_null($touite->getImage())) {
+            $res .= "<dd><img src='{$touite->getImage()->getChemin()}' alt='{$touite->getImage()->getDescription()}'></dd>";
+        }
+
+        $res .= "<br><dd>{$touite->getDate()} note : {$touite->getNote()}</ul>";
+        return $res;
     }
 }

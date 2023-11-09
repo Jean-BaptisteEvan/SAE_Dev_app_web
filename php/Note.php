@@ -1,5 +1,5 @@
 <?php
-namespace iutnc\fonctionnalites;
+namespace iutnc\touiteur;
 require_once '../vendor/autoload.php';
 use iutnc\touiteur\bdd\ConnectionFactory;
 use \PDO;
@@ -7,7 +7,7 @@ use \Exception;
 /**
  * This class is used to rate a touite and to know the average rating of a touite.
  */
-class note{
+class Note{
 
     /**
     * This function transforms the data passed into a parameter so that it does not present any security risks.
