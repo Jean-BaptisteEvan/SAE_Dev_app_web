@@ -30,11 +30,16 @@
 use iutnc\touiteur\TouiteRenderer;
 use iutnc\touiteur\TouiteSearch;
 require_once "../vendor/autoload.php";
-$listeTouites = TouiteSearch::GetTouitesPostedBy(1);
+session_start();
+if(isset($_SESSION['user'])){
+$listeTouites = TouiteSearch::GetTouitesPostedBy($_SESSION['user']['id']);
 $touitesRendered = array();
 foreach ($listeTouites as $k => $v) {
     array_push($touitesRendered, TouiteRenderer::renderLong($v));
     echo TouiteRenderer::renderCourt($v);
+}
+}else{
+    echo '<a href="Connection.php"><h2 class="search">Connectez-vous </h2></a>';
 }
 ?>
 <div class="PartieDroite" > <img src="Image/Logotouiteur-removebg-preview.png"></div>

@@ -38,9 +38,13 @@
 use iutnc\touiteur\MurUtilisateur;
 
 require_once "../vendor/autoload.php";
+session_start();
+if(isset($_SESSION['user'])){
 
-    MurUtilisateur::renderMur(1);
-
+    MurUtilisateur::renderMur($_SESSION['user']['id']);
+}else{
+    echo '<a href="Connection.php"><h2 class="search">Connectez-vous </h2></a>';
+}
 ?>
 
 <div class="PartieDroite" > <img src="Image/Logotouiteur-removebg-preview.png"></div>
