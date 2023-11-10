@@ -1,11 +1,12 @@
 <?php
 require_once '../vendor/autoload.php';
-require_once "./fonctionnalites_6_et_7.php";
-require_once "./fonctionnalite_13_et_14.php";
-use iutnc\fonctionnalites\connexion;
+require_once "./Compte.php";
+require_once "./Follow.php";
+use iutnc\fonctionnalites\Compte;
 use iutnc\touiteur\Supression;
-use iutnc\fonctionnalites\follow;
+use iutnc\fonctionnalites\Follow;
 use iutnc\touiteur\Note;
+use iutnc\touiteur\Narcissique;
 
 echo '<a href="?action=create">Créer compte</a>'."<br>";
 echo '<a href="?action=connect">Se connecter</a>'."<br>";
@@ -15,30 +16,46 @@ echo '<a href="?action=followuser">Suivre un utilisateur</a>'."<br>";
 echo '<a href="?action=followtag">Suivre un tag</a>'."<br>";
 echo '<a href="?action=noter">Noter un touite</a>'."<br>";
 echo '<a href="?action=note">Voir la moyenne d un touite</a>'."<br>";
+echo '<a href="?action=narc">Narcissique</a>'."<br>";
 
 if(isset($_GET['action']) and $_GET['action']==="create"){
-    connexion::creationCompte();
+    $nom="";
+    $prenom="";
+    $email="";
+    $pseudo="";
+    $mdp="";
+    Compte::creationCompte($nom, $prenom, $email, $pseudo, $mdp);
 }
 if(isset($_GET['action']) and $_GET['action']==="connect"){
-    connexion::connexion();
+    $pseudo="";
+    $mdp="";
+    Compte::connexion($pseudo, $mdp);
 }
 if(isset($_GET['action']) and $_GET['action']==="deconnect"){
-    connexion::deconnexion();
+    Compte::deconnexion();
 }
 if(isset($_GET['action']) and $_GET['action']==="delete"){
-    Supression::delete();
+    $idtouite=1;
+    Supression::delete($idtouite);
 }
 if(isset($_GET['action']) and $_GET['action']==="followuser"){
-    follow::followUser();
+    $pseudo="";
+    Follow::followUser($pseudo);
 }
 if(isset($_GET['action']) and $_GET['action']==="followtag"){
-    follow::followTag();
+    $tagLibelle="";
+    Follow::followTag($tagLibelle);
 }
 if(isset($_GET['action']) and $_GET['action']==="noter"){
-    Note::noter();
+    Note::noter(4,-1);
 }
 if(isset($_GET['action']) and $_GET['action']==="note"){
-    echo(Note::getMoyenne());
+        $idtouite=4;
+        echo(Note::getMoyenne($idtouite));
+}
+if(isset($_GET['action']) and $_GET['action']==="narc"){
+    Narcissique::displayUsers();
+    Narcissique::displayTouiteNote();
 }
 
 ?>
