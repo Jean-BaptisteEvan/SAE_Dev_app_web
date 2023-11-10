@@ -15,8 +15,14 @@ class TouiteRenderer {
      * @return string the string displaying the touite
      */
     public static function renderCourt(Touite $touite) : string {
+        // Add the tags
+        $repTags = "";
+        foreach ($touite->getListeTags() as $k => $v) {
+            $repTags .= "#{$v->getLibelle()} ";
+        }
+
         return "<ul class='search'>par <a id='posteur'>{$touite->getPosteur()}</a>
-                <dd>{$touite->getTexte()}</dd>
+                <dd><a id='tag'>$repTags</a> {$touite->getTexte()}</dd>
                 <br>
                 <dd>{$touite->getDate()}</dd>
                 </ul>";

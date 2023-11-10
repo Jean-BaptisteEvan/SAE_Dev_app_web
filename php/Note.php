@@ -75,40 +75,33 @@ class Note{
      */
     static function getMoyenne(int $idtouite): ?float{
         $idtouite= self::test_input($idtouite);
-        if(!isset($_SESSION)){
-            session_start();
-        }
         $note=null;
-        if(isset($_SESSION['user'])){
-            ConnectionFactory::makeConnection();
-            $connexion=ConnectionFactory::$bdd;
+        ConnectionFactory::makeConnection();
+        $connexion=ConnectionFactory::$bdd;
 
-            $sql="SELECT texte from touite where idTouite = ?;";
+        $sql="SELECT texte from touite where idTouite = ?;";
+        $resultset = $connexion->prepare($sql);
+        $resultset->bindParam(1,$idtouite);
+        $resultset->execute();
+        if($resultset->rowCount() > 0){
+            $sql="SELECT note from note where idTouite = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$idtouite);
             $resultset->execute();
-            if($resultset->rowCount() > 0){
-                $sql="SELECT note from note where idTouite = ?;";
-                $resultset = $connexion->prepare($sql);
-                $resultset->bindParam(1,$idtouite);
-                $resultset->execute();
-                $nb=$resultset->rowCount();
-                $note=0;
-                while ($row = $resultset->fetch(PDO::FETCH_NUM)){
-                    $note+=$row[0];
-                }
-                if($nb!==0){
-                    $note=round($note/$nb, 2);
-                }
-            }else{
-                echo "<p>Aucun touite avec cette id n'existe</p>";
+            $nb=$resultset->rowCount();
+            $note=0;
+            while ($row = $resultset->fetch(PDO::FETCH_NUM)){
+                $note+=$row[0];
             }
-            $connexion=null;
-            
+            if($nb!==0){
+                $note=round($note/$nb, 2);
+            }
         }else{
-            echo "<p>Veuillez vous connecter!</p>";
+            echo "<p>Aucun touite avec cette id n'existe</p>";
         }
-    return $note;
+        $connexion=null;
+
+        return $note;
     }
 }
 ?>
