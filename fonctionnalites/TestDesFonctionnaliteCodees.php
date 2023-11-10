@@ -31,14 +31,10 @@ if(isset($_GET['action']) and $_GET['action']==="delete"){
     Supression::delete($idtouite);
 }
 if(isset($_GET['action']) and $_GET['action']==="followuser"){
-    //mettre la valeur voulue dans la variable
-    $pseudo="";
-    Follow::followUser($pseudo);
+    Follow::followUser();
 }
 if(isset($_GET['action']) and $_GET['action']==="followtag"){
-    //mettre la valeur voulue dans la variable
-    $tagLibelle="";
-    Follow::followTag($tagLibelle);
+    Follow::followTag();
 }
 if(isset($_GET['action']) and $_GET['action']==="noter"){
     //mettre les valeurs voulues dans les paramètres
