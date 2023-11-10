@@ -15,7 +15,7 @@ class TouiteRenderer {
      * @return string the string displaying the touite
      */
     public static function renderCourt(Touite $touite) : string {
-        return "<ul class='search'>par <a id='posteur' href='https://fr.wikipedia.org/wiki/Chat#/media/Fichier:Collage_of_Six_Cats-02.jpg'>{$touite->getPosteur()}</a>
+        return "<ul class='search'>par <a id='posteur'>{$touite->getPosteur()}</a>
                 <dd>{$touite->getTexte()}</dd>
                 <br>
                 <dd>{$touite->getDate()}</dd>
@@ -34,8 +34,8 @@ class TouiteRenderer {
             $repTags .= "#{$v->getLibelle()} ";
         }
 
-        $res = "<ul class='search'>par <a id='posteur' href='https://fr.wikipedia.org/wiki/Chat#/media/Fichier:Collage_of_Six_Cats-02.jpg'>{$touite->getPosteur()}</a>
-                <dd><a id='tag' href='https://fr.wikipedia.org/wiki/Chat#/media/Fichier:Collage_of_Six_Cats-02.jpg'>$repTags</a> {$touite->getTexte()}</dd>";
+        $res = "<ul class='search'>par <a id='posteur'>{$touite->getPosteur()}</a>
+                <dd><a id='tag'>$repTags</a> {$touite->getTexte()}</dd>";
 
         // If there is a piture associated with the touite
         if (!is_null($touite->getImage())) {

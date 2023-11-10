@@ -24,10 +24,20 @@ class TouiteSearch {
         $listeTouites = array();
 
         $requete1 = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
-                                            INNER JOIN User ON User.idUser = Touite.idUser");
+                                            INNER JOIN User ON User.idUser = Touite.idUser
+                                            ORDER BY datePublication DESC");
         $requete1->execute();
         while($ligne1=$requete1->fetch()) {
-            $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
+            $format = "l j F Y h:i:s";
+            $dateBrute = explode("-", $ligne1[0]);
+            $heureComplete = explode(":", explode(" ", $dateBrute[2])[1]);
+
+            $date = mktime($heureComplete[0], $heureComplete[0], $heureComplete[0],
+                           $dateBrute[1], explode(" ", $dateBrute[2])[0], $dateBrute[0]);
+
+            $date = date($format, $date);
+
+            $touite = new touiteur\Touite($date, $ligne1[1], $ligne1[2]);
 
             // Add the tags related to this touite
             $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
@@ -63,11 +73,20 @@ class TouiteSearch {
 
         $requete1 = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
                                             INNER JOIN User ON User.idUser = Touite.idUser
-                                            WHERE Touite.idUser = ? ORDER BY datePublication ASC");
+                                            WHERE Touite.idUser = ? ORDER BY datePublication DESC");
         $requete1->bindParam(1, $idUser);
         $requete1->execute();
         while($ligne1=$requete1->fetch()) {
-            $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
+            $format = "l j F Y h:i:s";
+            $dateBrute = explode("-", $ligne1[0]);
+            $heureComplete = explode(":", explode(" ", $dateBrute[2])[1]);
+
+            $date = mktime($heureComplete[0], $heureComplete[0], $heureComplete[0],
+                $dateBrute[1], explode(" ", $dateBrute[2])[0], $dateBrute[0]);
+
+            $date = date($format, $date);
+
+            $touite = new touiteur\Touite($date, $ligne1[1], $ligne1[2]);
 
             // Add the tags related to this touite
             $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
@@ -105,11 +124,20 @@ class TouiteSearch {
                                             INNER JOIN User ON User.idUser = Touite.idUser
                                             INNER JOIN TagJoint ON TagJoint.idTouite = Touite.idTouite
                                             INNER JOIN Tag ON Tag.idTag = TagJoint.idTag
-                                            WHERE Tag.tagLibelle = ? ORDER BY datePublication ASC");
+                                            WHERE Tag.tagLibelle = ? ORDER BY datePublication DESC");
         $requete1->bindParam(1, $tagLibelle);
         $requete1->execute();
         while($ligne1=$requete1->fetch()) {
-            $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
+            $format = "l j F Y h:i:s";
+            $dateBrute = explode("-", $ligne1[0]);
+            $heureComplete = explode(":", explode(" ", $dateBrute[2])[1]);
+
+            $date = mktime($heureComplete[0], $heureComplete[0], $heureComplete[0],
+                $dateBrute[1], explode(" ", $dateBrute[2])[0], $dateBrute[0]);
+
+            $date = date($format, $date);
+
+            $touite = new touiteur\Touite($date, $ligne1[1], $ligne1[2]);
 
             // Add the tags related to this touite
             $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
