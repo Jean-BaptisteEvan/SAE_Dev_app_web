@@ -12,14 +12,15 @@ try {
     if(isset($_GET['action']) and $_GET['action']==="connect"){
         connexion::connexion();
     }
+    unset($_GET['action']);
 } catch (Exception $e) {}
 if(isset($_SESSION['user'])) {
     if (!isset($_POST['msg']) || $_SERVER['REQUEST_METHOD'] === 'GET') {
         //formulaire de post de touite
         echo '<form action="" method="post">
-        Message <input type="text" name="msg"><br>
-        <input type="submit">
-    <form/></br>';
+      Message <textarea name="comment" rows="12" cols="35"></textarea><br>
+      <input type="submit" name="submitInfo" value="Submit">
+    </form></br>';
     } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //correction d'un problème dû à la fragmentation du code
         $_POST['mdp'] = $_SESSION['user']['pseudo'];
@@ -59,8 +60,8 @@ if(isset($_SESSION['user'])) {
         //debug a supr
         var_dump($_POST);
         echo'<br>';
-        var_dump($_SESSION);
+        var_dump($GLOBALS['_POST']);
         //réintilisation du message
-        unset($_POST['msg']);
+        unset($GLOBALS['_POST']);
     }
 }
