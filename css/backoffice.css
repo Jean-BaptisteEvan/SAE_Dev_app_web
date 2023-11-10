@@ -1,14 +1,6 @@
-table, th, td {
-    border: 1px solid black;
-}
-td{
-    width :50%;
-    text-align: center;
-}
-table{
-    width: 15em;
-}
-
+table, th, td {border: 1px solid black;}
+td{width :50%;text-align: center;}
+table{width: 90%;height: 80%;}
 body{
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 0.5fr;
@@ -22,17 +14,17 @@ body{
     /*background: linear-gradient(145deg, rgba(6,0,115,1) 0%, rgba(0,64,89,1) 50%, rgba(44,190,54,1) 100%);*/
     color:white;
 }
-
+#deco{
+     grid-area: 1 / 3 / 2 / 4;
+     line-height: 2.5;
+     padding: 0 20px;
+     font-size: 1rem;
+     text-align: center;
+     border-radius: 10px;
+     max-height: 60%;
+     max-width: 60%;
+ }
 #tags { grid-area: 2 / 2 / 5 / 3; }
 #util { grid-area: 2 / 4 / 5 / 5; }
 
-button{
-    grid-area: 1 / 3 / 2 / 4;
-    line-height: 2.5;
-    padding: 0 20px;
-    font-size: 1rem;
-    text-align: center;
-    border-radius: 10px;
-    max-height: 40%;
-    max-width: 60%;
-}
+
