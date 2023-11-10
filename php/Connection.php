@@ -20,11 +20,22 @@
         </div>
 
 
-        <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
-        </form>
+        <?php
+        use iutnc\touiteur\Compte;
+
+        require_once "../vendor/autoload.php";
+
+        session_start();
+        $a=0;
+        try {
+        $a=Compte::connexion();
+        } catch(Exception $e){
+            echo '<a href="Connection.php"><h2 class="active">Réessayer </h2></a>';
+        }
+        if($a===1){
+            echo '<a href="DispacheurMurUti.php"><h2 class="active">Accéder à touiteur </h2></a>';
+        }
+        ?>
 
 
 
@@ -32,4 +43,3 @@
 </div>
 </body>
 
-<?php

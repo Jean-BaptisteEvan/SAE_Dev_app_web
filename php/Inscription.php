@@ -20,14 +20,20 @@
         </div>
 
 
-        <form>
-            <input type="text" id="pseudo" class="fadeIn second" name="login" placeholder="pseudo">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
-            <input type="text" id="Prenom" class="fadeIn third" name="login" placeholder="Prenom">
-            <input type="text" id="Nom" class="fadeIn third" name="login" placeholder="Nom">
-            <input type="text" id="Email" class="fadeIn third" name="login" placeholder="Email">
-            <input type="submit" class="fadeIn fourth" value="Register">
-        </form>
+        <?php
+        use iutnc\touiteur\Compte;
+
+        require_once "../vendor/autoload.php";
+        $a=0;
+        try {
+        $a=Compte::creationCompte();
+        } catch(Exception $e){
+            echo '<a href="Inscription.php"><h2 class="active">Réessayer </h2></a>';
+        }
+        if($a===1){
+            echo '<a href="Connection.php"><h2 class="active">Se connecter </h2></a>';
+        }
+        ?>
 
 
 

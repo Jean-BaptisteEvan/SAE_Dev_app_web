@@ -24,12 +24,24 @@ class Compte{
     /**
     * This function (create account) creates a user in the database if the nickname entered in the form is unique.
     */
-    static function creationCompte($nom, $prenom, $email, $pseudo, $mdp){
-        $nom = self::test_input($nom);
-        $prenom = self::test_input($prenom);
-        $email = self::test_input($email);
-        $pseudo = self::test_input($pseudo);
-        $mdp = self::test_input($mdp);
+    static function creationCompte():int{
+        $a=0;
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $content = '<form action="" method="post">
+            <input type="text" id="pseudo" class="fadeIn second" name="pseudo" placeholder="pseudo">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            <input type="text" id="Prenom" class="fadeIn third" name="Prenom" placeholder="Prenom">
+            <input type="text" id="Nom" class="fadeIn third" name="Nom" placeholder="Nom">
+            <input type="text" id="Email" class="fadeIn third" name="Email" placeholder="Email">
+            <input type="submit" class="fadeIn fourth" value="Register">
+        </form>';
+            echo $content;
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nom = self::test_input($_POST['Nom']);
+        $prenom = self::test_input($_POST['Prenom']);
+        $email = self::test_input($_POST['Email']);
+        $pseudo = self::test_input($_POST['pseudo']);
+        $mdp = self::test_input($_POST['password']);
         $truemdp=password_hash($mdp, PASSWORD_DEFAULT,['cost'=> 12]);
         ConnectionFactory::makeConnection();
         $connexion=ConnectionFactory::$bdd;
@@ -63,54 +75,74 @@ class Compte{
 
         $connexion=null;
 
+        $a=1;
         echo "<p>Utilisateur créer avec succès!</p>";
+    }
+    return $a;
     }
 
     /**
     * This function (log in) creates a session with the user's informations if he entered the right nickname and password.
     */
-    static function connexion($pseudo, $mdp){
-        $pseudo = self::test_input($pseudo);
-        $mdp = self::test_input($mdp);
-        session_start();
-        $connecte=isset($_SESSION['user']);
-        ConnectionFactory::makeConnection();
-        $connexion=ConnectionFactory::$bdd;
-        //Selection of the user's informations
-        $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass, admin from USER where pseudo = ?;";
-        $resultset = $connexion->prepare($sql);
-        $resultset->bindParam(1,$pseudo);
-        $resultset->execute();
-        if($resultset->rowCount() === 0){
-            throw new Exception('Pseudo inexistant!');
-        } else{
-            $row = $resultset->fetch(PDO::FETCH_NUM);
-            if (password_verify($mdp, $row[5])){
-                $id = $row[0];
-                $nom = $row[1];
-                $prenom = $row[2];
-                $mail = $row[3];
-                $admin=$row[6];
-                //Adding the user's informations to the session
-                $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo, 'admin' => $admin];                
-                $_SESSION['user'] = $tabUser;
-                //To be sure that the $_SESSION is really created
-                $connecte=isset($_SESSION['user']);
-                if($connecte){
-                    echo '<p>Connexion réussie!</p>';
-                }
-            } else{
-                throw new Exception('Mot de passe invalide');
+    static function connexion():int{
+        $a=0;
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $content = 
+                '<form action="" method="post">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>';
+            echo $content;
+        }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(!isset($_SESSION)){
+                session_start();
             }
+            $connecte=isset($_SESSION['user']);
+            $pseudo = self::test_input($_POST["login"]);
+            $mdp = self::test_input($_POST["password"]);
+            ConnectionFactory::makeConnection();
+            $connexion=ConnectionFactory::$bdd;
+            //Selection of the user's informations
+            $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass, admin from USER where pseudo = ?;";
+            $resultset = $connexion->prepare($sql);
+            $resultset->bindParam(1,$pseudo);
+            $resultset->execute();
+            if($resultset->rowCount() === 0){
+                throw new Exception('Pseudo inexistant!');
+            } else{
+                $row = $resultset->fetch(PDO::FETCH_NUM);
+                if (password_verify($mdp, $row[5])){
+                    $id = $row[0];
+                    $nom = $row[1];
+                    $prenom = $row[2];
+                    $mail = $row[3];
+                    $admin=$row[6];
+                    //Adding the user's informations to the session
+                    $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo, 'admin' => $admin];                
+                    $_SESSION['user'] = $tabUser;
+                    //To be sure that the $_SESSION is really created
+                    $connecte=isset($_SESSION['user']);
+                    if($connecte){
+                        $a=1;
+                        echo '<p>Connexion réussie!</p>';
+                    }
+                } else{
+                    throw new Exception('Mot de passe invalide');
+                }
+            }
+            $connexion=null;
         }
-        $connexion=null;
+        return $a;
     }
 
     /**
     * This function (log out) disconnects the logged user by deleting the session.
     */
     static function deconnexion(){
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
         if(isset($_SESSION['user'])){
             unset($_SESSION['user']);
             echo "<p>Déconnexion réussie!</p>";
