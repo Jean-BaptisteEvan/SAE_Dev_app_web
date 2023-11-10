@@ -93,9 +93,6 @@ class Note{
             while ($row = $resultset->fetch(PDO::FETCH_NUM)){
                 $note+=$row[0];
             }
-            if($nb!==0){
-                $note=round($note/$nb, 2);
-            }
         }else{
             echo "<p>Aucun touite avec cette id n'existe</p>";
         }
