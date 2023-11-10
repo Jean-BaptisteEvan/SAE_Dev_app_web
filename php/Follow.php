@@ -1,5 +1,6 @@
 <?php
 namespace iutnc\touiteur;
+require_once '../vendor/autoload.php';
 use \PDO;
 use \Exception;
 class Follow{
