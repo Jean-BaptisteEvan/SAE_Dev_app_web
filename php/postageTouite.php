@@ -5,6 +5,11 @@ namespace iutnc\touiteur;
 class postageTouite
 {
  function postageTouite($bdd){
+     // Necessary, otherwise can't post touites !
+     if (!isset($_SESSION['user'])) {
+         session_start();
+     }
+
      if (!isset($_POST['msg']) || $_SERVER['REQUEST_METHOD'] === 'GET') {
          //formulaire de post de touite
          echo '<form action="" method="post" enctype="multipart/form-data">
