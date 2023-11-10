@@ -17,17 +17,10 @@ echo '<a href="?action=note">Voir la moyenne d un touite</a>'."<br>";
 echo '<a href="?action=narc">Narcissique</a>'."<br>";
 
 if(isset($_GET['action']) and $_GET['action']==="create"){
-    $nom="";
-    $prenom="";
-    $email="";
-    $pseudo="";
-    $mdp="";
-    Compte::creationCompte($nom, $prenom, $email, $pseudo, $mdp);
+    Compte::creationCompte();
 }
 if(isset($_GET['action']) and $_GET['action']==="connect"){
-    $pseudo="";
-    $mdp="";
-    Compte::connexion($pseudo, $mdp);
+    Compte::connexion();
 }
 if(isset($_GET['action']) and $_GET['action']==="deconnect"){
     Compte::deconnexion();
