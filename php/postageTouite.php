@@ -7,12 +7,13 @@ class postageTouite
  function postageTouite($bdd){
      if (!isset($_POST['msg']) || $_SERVER['REQUEST_METHOD'] === 'GET') {
          //formulaire de post de touite
-         echo '<form action="" method="post" enctype="multipart/form-data">>
+         echo '<form action="" method="post" enctype="multipart/form-data">
       Entrer votre message : <br>
       <textarea name="msg" rows="6" cols="35"></textarea><br>
-        <input type="file" name="inputfile">
+        <input type="file" name="inputfile"><br>
         <input type="text" name="description">
-        <br><button type="submit" name="valider" value="">transférer</button>
+        <br><button type="submit" name="valider" value="">transférer</button><br>
+        <a href="Dispacheur.php">Retour</a>
     </form>';
      } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          //recupération

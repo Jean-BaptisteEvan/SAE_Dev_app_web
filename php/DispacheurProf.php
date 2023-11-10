@@ -22,6 +22,8 @@
             <li><div class="container"><a href="Recherche.asp"><img src="Image/glass-removebg-preview.png" class="imgheaderhome"></a> <h3>Search</h3></div></li>
             <li><div class="container"><a href="DispacheurProf.php"><img src="Image/user-removebg-preview.png " class="imgheaderhome"></a><h3>Profile</h3></div></li>
             <li><div class="contain"><a href="Post.php" class="imgPost"><h4>Post</h4></a></div> </li>
+            <li><div class="container"><a href="Connection.php" ><img src="Image/door-green.png"></a><h3>SignIn</h3></div> </li>
+            <li><div class="container"><a href="MainDeconnection.php" ><img src="Image/door-Red.png"></a><h3>SignUp</h3></div> </li>
         </ul>
     </nav>
 
