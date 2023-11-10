@@ -26,21 +26,26 @@ if(isset($_GET['action']) and $_GET['action']==="deconnect"){
     Compte::deconnexion();
 }
 if(isset($_GET['action']) and $_GET['action']==="delete"){
+    //mettre la valeur voulue dans la variable
     $idtouite=1;
     Supression::delete($idtouite);
 }
 if(isset($_GET['action']) and $_GET['action']==="followuser"){
+    //mettre la valeur voulue dans la variable
     $pseudo="";
     Follow::followUser($pseudo);
 }
 if(isset($_GET['action']) and $_GET['action']==="followtag"){
+    //mettre la valeur voulue dans la variable
     $tagLibelle="";
     Follow::followTag($tagLibelle);
 }
 if(isset($_GET['action']) and $_GET['action']==="noter"){
+    //mettre les valeurs voulues dans les paramètres
     Note::noter(4,-1);
 }
 if(isset($_GET['action']) and $_GET['action']==="note"){
+    //mettre la valeur voulue dans la variable
         $idtouite=4;
         echo(Note::getMoyenne($idtouite));
 }
