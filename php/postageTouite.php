@@ -38,7 +38,7 @@ class postageTouite
                  $repTag = $bdd->query("SELECT idTag FROM tag WHERE tagLibelle like '$tabMes[$i]'");
                  //si le tag n existe pas ou il existe
                  if ($repTag->rowCount() === 0) {
-                     $bdd->exec("INSERT INTO Tag (tagLibelle,tagDesc) VALUES ('$tabMes[$i]','sera ajouter au moment d une utilisation superieur a 100')");
+                     $bdd->exec("INSERT INTO tag (tagLibelle,tagDesc) VALUES ('$tabMes[$i]','sera ajouter au moment d une utilisation superieur a 100')");
                      $repIdTag = $bdd->query("SELECT idTag FROM tag WHERE idTag >= ALL(SELECT idTag FROM tag)");
                      $idTag = $repIdTag->fetch()['idTag'];
                  }else{

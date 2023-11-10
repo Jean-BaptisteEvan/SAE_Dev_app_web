@@ -63,8 +63,8 @@ class MurUtilisateur{
 
                     if($ligne['idUser'] == $suivie){
 
-                        $requete1 = $bdd->prepare("SELECT  User.pseudo FROM Touite
-                                            INNER JOIN User ON User.idUser = Touite.idUser Where User.idUser = ?");
+                        $requete1 = $bdd->prepare("SELECT  user.pseudo FROM touite
+                                            INNER JOIN user ON user.idUser = touite.idUser Where user.idUser = ?");
                         $requete1->bindParam(1, $ligne['idUser']);
                         $requete1->execute();
                         $ligne1=$requete1->fetch();
@@ -75,8 +75,8 @@ class MurUtilisateur{
                 foreach($listeTouiteTag as $touiteTag){
 
                     if($ligne['idTouite'] == $touiteTag){
-                        $requete1 = $bdd->prepare("SELECT  User.pseudo FROM Touite
-                                            INNER JOIN User ON User.idUser = Touite.idUser Where User.idUser = ?");
+                        $requete1 = $bdd->prepare("SELECT  user.pseudo FROM touite
+                                            INNER JOIN user ON user.idUser = touite.idUser Where user.idUser = ?");
                         $requete1->bindParam(1, $ligne['idUser']);
                         $requete1->execute();
                         $ligne1=$requete1->fetch();

@@ -32,7 +32,7 @@ class Follow{
             } catch(Exception $e){
                 die('Erreur : '.$e->getMessage());
             } 
-            $sql="SELECT idUser from USER where pseudo = ?;";
+            $sql="SELECT idUser from user where pseudo = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$pseudo);
             $resultset->execute();
