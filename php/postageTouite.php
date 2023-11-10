@@ -36,16 +36,16 @@ class postageTouite
          if (count($tabMes) !== 0) {
              //parcours des tags stocké
              for ($i = 1; $i < count($tabMes); $i++) {
-                 $repTag = $bdd->query("SELECT idTag FROM Tag WHERE tagLibelle like '$tabMes[$i]'");
+                 $repTag = $bdd->query("SELECT idTag FROM tag WHERE tagLibelle like '$tabMes[$i]'");
                  //si le tag n existe pas ou il existe
                  if ($repTag->rowCount() === 0) {
                      $bdd->exec("INSERT INTO Tag (tagLibelle,tagDesc) VALUES ('$tabMes[$i]','sera ajouter au moment d une utilisation superieur a 100')");
-                     $repIdTag = $bdd->query("SELECT idTag FROM Tag WHERE idTag >= ALL(SELECT idTag FROM Tag)");
+                     $repIdTag = $bdd->query("SELECT idTag FROM tag WHERE idTag >= ALL(SELECT idTag FROM tag)");
                      $idTag = $repIdTag->fetch()['idTag'];
                  }else{
                      $idTag = $repTag->fetch()['idTag'];
                  }
-                 $bdd->exec("INSERT INTO TAGJOINT (idTouite,idTag) VALUES ($idT,$idTag)");
+                 $bdd->exec("INSERT INTO tagjoint (idTouite,idTag) VALUES ($idT,$idTag)");
              }
          }
 
@@ -58,10 +58,10 @@ class postageTouite
          if (($_FILES['inputfile']['error'] === UPLOAD_ERR_OK) && $_FILES['inputfile']['type'] !== "" && ($_FILES['inputfile']['type'] === 'image/jpeg' || 'image/png' || 'image/gif')) {
              $dest = $repertoire . $nomFichier;
              if (move_uploaded_file($tmp, $dest)) {
-                 $bdd->exec("INSERT INTO Image (imgDesc, chemin) VALUES (" . "'$_POST[description]'" . ", '$dest')");
+                 $bdd->exec("INSERT INTO image (imgDesc, chemin) VALUES (" . "'$_POST[description]'" . ", '$dest')");
                  $repImg = $bdd->query("SELECT idImage FROM image WHERE idImage >= ALL(SELECT idImage FROM image)");
                  $idImg = $repImg->fetch()['idImage'];
-                 $bdd->exec("INSERT INTO ImageJointe VALUES (".$idImg.",".$idT.")");
+                 $bdd->exec("INSERT INTO imagejointe VALUES (".$idImg.",".$idT.")");
                  echo "Image téléchargée<br>";
              } else {
                  echo "Echec du téléchargement<br>";

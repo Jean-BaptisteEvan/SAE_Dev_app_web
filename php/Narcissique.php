@@ -17,7 +17,7 @@ class Narcissique{
             ConnectionFactory::makeConnection();
             $connexion=ConnectionFactory::$bdd;
 
-            $sql="SELECT u.pseudo from user u, suivreUser s where u.idUser = s.idUser and s.idSuivie = ?;";
+            $sql="SELECT u.pseudo from user u, suivreuser s where u.idUser = s.idUser and s.idSuivie = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$id);
             $resultset->execute();

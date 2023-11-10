@@ -32,15 +32,15 @@ class TouitePublier
             if (count($tabMes) !== 0) {
                 //parcours des tags stocké
                 for ($i = 1; $i < count($tabMes); $i++) {
-                    $repTag = $bdd->query("SELECT idTag FROM Tag WHERE tagLibelle like '$tabMes[$i]'");
+                    $repTag = $bdd->query("SELECT idTag FROM tag WHERE tagLibelle like '$tabMes[$i]'");
                     $idTag = $repTag->fetch()['idTag'];
                     //si le tag n existe pas
                     if (is_null($idTag)) {
-                        $bdd->exec("INSERT INTO Tag (tagLibelle,tagDesc) VALUES ('$tabMes[$i]',' ')");
-                        $repIdTag = $bdd->query("SELECT idTag FROM Tag WHERE idTag >= ALL(SELECT idTag FROM Tag)");
+                        $bdd->exec("INSERT INTO tag (tagLibelle,tagDesc) VALUES ('$tabMes[$i]',' ')");
+                        $repIdTag = $bdd->query("SELECT idTag FROM tag WHERE idTag >= ALL(SELECT idTag FROM tag)");
                         $idTag = $repIdTag->fetch()['idTag'];
                     }
-                    $bdd->exec("INSERT INTO TAGJOINT (idTouite,idTag) VALUES ($idT,$idTag)");
+                    $bdd->exec("INSERT INTO tagjoint (idTouite,idTag) VALUES ($idT,$idTag)");
                 }
             }
         }
