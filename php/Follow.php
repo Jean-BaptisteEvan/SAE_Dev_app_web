@@ -21,13 +21,24 @@ class Follow{
     /**
      * This function allow you to follow a user using his nikname
      */
-    static function followUser($pseudo){
-        $pseudo = self::test_input($pseudo);
-        session_start();
+    static function followUser():int{
+        $a=0;
+        if(!isset($_SESSION)){
+            session_start();
+        }
         if(isset($_SESSION['user'])){
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $content = 
+                    '<form action="" method="post">
+                <input type="text" id="pseudo" class="fadeIn second" name="pseudo" placeholder="Pseudo de l utilisateur">
+                <input type="submit" class="fadeIn fourth" value="Suivre">
+            </form>';
+                echo $content;
+            }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $pseudo = self::test_input($_POST['pseudo']);
             if($pseudo === $_SESSION['user']['pseudo']){
                 throw new Exception('Impossible de se suivre');
-            }
+            }else{
             ConnectionFactory::makeConnection();
             $connexion=ConnectionFactory::$bdd;
             $sql="SELECT idUser from user where pseudo = ?;";
@@ -45,21 +56,35 @@ class Follow{
                 $resultset->bindParam(1,$idus);
                 $resultset->bindParam(2,$idsuiv);
                 $resultset->execute();
-                echo "<p>Utilisateur suivi avec succès!</p>";
+                $a=1;
             }
             $connexion=null;
+        }
+        }
         }else{
             echo "<p>Veuillez vous connecter!</p>";
         }
+        return $a;
     }
 
     /**
      * This function allow you to follow a tag using his name
      */
-    static function followTag($tag){
-        $tag = self::test_input($tag);
-        session_start();
+    static function followTag():int{
+        $a=0;
+        if(!isset($_SESSION)){
+            session_start();
+        }
         if(isset($_SESSION['user'])){
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $content = 
+                    '<form action="" method="post">
+                <input type="text" id="tag" class="fadeIn second" name="tag" placeholder="Libelle du tag">
+                <input type="submit" class="fadeIn fourth" value="Suivre">
+            </form>';
+                echo $content;
+            }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $tag = self::test_input($_POST['tag']);
             ConnectionFactory::makeConnection();
             $connexion=ConnectionFactory::$bdd;
             $sql="SELECT idTag from tag where tagLibelle = ?;";
@@ -77,12 +102,14 @@ class Follow{
                 $resultset->bindParam(1,$idus);
                 $resultset->bindParam(2,$idtag);
                 $resultset->execute();
-                echo "<p>Tag suivi avec succès!</p>";
+                $a=1;
             }
             $connexion=null;
+        }
         }else{
             echo "<p>Veuillez vous connecter!</p>";
         }
+        return $a;
     }
 }
 ?>

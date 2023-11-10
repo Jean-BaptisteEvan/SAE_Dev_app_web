@@ -68,7 +68,7 @@ class MurUtilisateur{
                         $requete1->bindParam(1, $ligne['idUser']);
                         $requete1->execute();
                         $ligne1=$requete1->fetch();
-                        $touite =new Touite($ligne['datePublication'], $ligne1['pseudo'], $ligne['texte'], $ligne['idTouite']);
+                        $touite =new Touite($ligne['datePublication'], $ligne1['pseudo'], $ligne['texte'], $ligne['idTouite'], $ligne['idUser']);
                         echo TouiteRenderer::renderCourt($touite);
                     }
                 }
@@ -81,7 +81,7 @@ class MurUtilisateur{
                         $requete1->execute();
                         $ligne1=$requete1->fetch();
 
-                            $touite =new Touite($ligne['datePublication'],$ligne1['pseudo'], $ligne['texte'], $ligne['idTouite']);
+                            $touite =new Touite($ligne['datePublication'],$ligne1['pseudo'], $ligne['texte'], $ligne['idTouite'], $ligne['idUser']);
                             echo TouiteRenderer::renderCourt($touite);
                     }
                 }
