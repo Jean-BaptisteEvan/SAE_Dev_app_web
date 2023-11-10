@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,13 +12,12 @@
 <body>
 <header>
 
-        <nav class="menuHaut">
-            <ul>
-                <div class="hdr"><a href="DispacheurMurUti.php"><h1>ForYou</h1></a> </div>
-                <div class="hdr"><a href="Dispacheur.php"><h1>All</h1></a> </div>
-            </ul>
+    <nav class="menuHaut">
+        <ul>
+            <div class="hdr"><a href="DispacheurMurUti.php"><h1>ForYou</h1></a> </div>
+            <div class="hdr"><a href="Dispacheur.php"> <h1>All</h1></a></div>
+        </ul>
 </header>
-
 
     <nav class="menuGauche">
         <ul>
@@ -40,29 +35,14 @@
 
 
 <?php
-use iutnc\touiteur\TouiteRenderer;
-use iutnc\touiteur\TouiteSearch;
+use iutnc\touiteur\MurUtilisateur;
 
 require_once "../vendor/autoload.php";
 
-$listeTouites = TouiteSearch::getAllTouites();
+    MurUtilisateur::renderMur(1);
 
-$touitesRendered = array();
-foreach ($listeTouites as $k => $v) {
-    array_push($touitesRendered, TouiteRenderer::renderLong($v));
-    echo TouiteRenderer::renderLong($v);
-
-} ?>
+?>
 
 <div class="PartieDroite" > <img src="Image/Logotouiteur-removebg-preview.png"></div>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
