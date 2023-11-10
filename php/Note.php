@@ -25,8 +25,8 @@ class Note{
      * This function allow you to rate a touite
      */
     static function noter(int $idtouite, int $note){
-        $idtouite = test_input($idtouite);
-        $note = test_input($note);
+        $idtouite = self::test_input($idtouite);
+        $note = self::test_input($note);
         if(!isset($_SESSION)){
             session_start();
         }
@@ -74,7 +74,7 @@ class Note{
      * @return ?float either the average rating of the selected touite or nothing if the user isn't logged in
      */
     static function getMoyenne(int $idtouite): ?float{
-        $idtouite= test_input($idtouite);
+        $idtouite= self::test_input($idtouite);
         if(!isset($_SESSION)){
             session_start();
         }

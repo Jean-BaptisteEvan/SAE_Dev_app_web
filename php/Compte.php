@@ -25,11 +25,11 @@ class Compte{
     * This function (create account) creates a user in the database if the nickname entered in the form is unique.
     */
     static function creationCompte($nom, $prenom, $email, $pseudo, $mdp){
-        $nom = test_input($nom);
-        $prenom = test_input($prenom);
-        $email = test_input($email);
-        $pseudo = test_input($pseudo);
-        $mdp = test_input($mdp);
+        $nom = self::test_input($nom);
+        $prenom = self::test_input($prenom);
+        $email = self::test_input($email);
+        $pseudo = self::test_input($pseudo);
+        $mdp = self::test_input($mdp);
         $truemdp=password_hash($mdp, PASSWORD_DEFAULT,['cost'=> 12]);
         ConnectionFactory::makeConnection();
         $connexion=ConnectionFactory::$bdd;
@@ -70,8 +70,8 @@ class Compte{
     * This function (log in) creates a session with the user's informations if he entered the right nickname and password.
     */
     static function connexion($pseudo, $mdp){
-        $pseudo = test_input($pseudo);
-        $mdp = test_input($mdp);
+        $pseudo = self::test_input($pseudo);
+        $mdp = self::test_input($mdp);
         session_start();
         $connecte=isset($_SESSION['user']);
         ConnectionFactory::makeConnection();

@@ -21,7 +21,7 @@ class Follow{
      * This function allow you to follow a user using his nikname
      */
     static function followUser($pseudo){
-        $pseudo = test_input($pseudo);
+        $pseudo = self::test_input($pseudo);
         session_start();
         if(isset($_SESSION['user'])){
             if($pseudo === $_SESSION['user']['pseudo']){
@@ -59,7 +59,7 @@ class Follow{
      * This function allow you to follow a tag using his name
      */
     static function followTag($tag){
-        $tag = test_input($tag);
+        $tag = self::test_input($tag);
         session_start();
         if(isset($_SESSION['user'])){
             try{
