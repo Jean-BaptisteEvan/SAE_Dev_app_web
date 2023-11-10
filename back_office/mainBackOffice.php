@@ -20,7 +20,8 @@ if(isset($_SESSION['user'])){
         ConnectionFactory::makeConnection();
         $bdd = ConnectionFactory::$bdd;
         gestionBackOffice::genererBackOffice($bdd);
-        echo '<button id="deco"><a href="?action=deconnect">Se déconnecter</a></button>';
+
+        echo '<a href="?action=deconnect"><button id="deco">Se déconnecter</button></a>';
         if(isset($_GET['action']) and $_GET['action']==="deconnect"){
             Compte::deconnexion();
         }
