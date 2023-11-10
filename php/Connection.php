@@ -32,6 +32,7 @@
         } catch(Exception $e){
             echo $e->getMessage()."<br>";
             echo '<a href="Connection.php"><h2 class="active">Réessayer </h2></a>';
+            echo '<a href="Dispacheur.php"><h2 class="active">Regarder sans connection </h2></a>';
         }
         if($a===1){
             echo "Connexion réussie!<br>";
