@@ -28,6 +28,8 @@ if(isset($_SESSION['user'])){
     }else{
         echo 'access not granted please leave';
     }
+}else{
+    echo 'utilisateur inexistant veuillez retourner à la page précédente et réessayer';
 }
 
 
