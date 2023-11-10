@@ -26,7 +26,7 @@ if (($_FILES['inputfile']['error'] === UPLOAD_ERR_OK) &&
 // Add the picture to the database
 ConnectionFactory::makeConnection();
 $bdd = ConnectionFactory::$bdd;
-$requete1 = $bdd->prepare("INSERT INTO Image (imgDesc, chemin) VALUES (?, ?)");
+$requete1 = $bdd->prepare("INSERT INTO image (imgDesc, chemin) VALUES (?, ?)");
 $requete1->bindParam(1, $_POST['description']);
 $requete1->bindParam(2, $dest);
 $requete1->execute();

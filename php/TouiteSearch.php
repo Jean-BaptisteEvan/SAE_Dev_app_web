@@ -39,11 +39,11 @@ class TouiteSearch {
             $touite = new touiteur\Touite($date, $ligne1[1], $ligne1[2], $ligne1[3]);
 
             // Add the tags related to this touite
-            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
-	                                            INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
+            $requete2 = $bdd->prepare("SELECT tag.tagLibelle, tag.tagDesc, image.chemin, image.imgDesc FROM tag
+	                                            INNER JOIN tagjoint ON tagjoint.idTag = tag.idTag
                                                 INNER JOIN imagejointe ON imagejointe.idTouite = tagjoint.idTouite
 	                                            INNER JOIN Image ON image.idImage = imagejointe.idimage
-  	                                            WHERE TagJoint.idTouite = ?");
+  	                                            WHERE tagjoint.idTouite = ?");
             $requete2->bindParam(1, $ligne1[3]);
             $requete2->execute();
             while($ligne2=$requete2->fetch()) {
@@ -67,8 +67,8 @@ class TouiteSearch {
         bdd\ConnectionFactory::makeConnection();
         $bdd = bdd\ConnectionFactory::$bdd;
 
-        $requete = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
-                                            INNER JOIN User ON User.idUser = Touite.idUser
+        $requete = $bdd->prepare("SELECT touite.datePublication, user.pseudo, touite.texte, touite.idTouite FROM touite
+                                            INNER JOIN user ON user.idUser = touite.idUser
                                             ORDER BY datePublication DESC");
         return self::creerListeTouites($bdd, $requete);
     }
@@ -82,9 +82,9 @@ class TouiteSearch {
         bdd\ConnectionFactory::makeConnection();
         $bdd = bdd\ConnectionFactory::$bdd;
 
-        $requete = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
-                                            INNER JOIN User ON User.idUser = Touite.idUser
-                                            WHERE Touite.idUser = ? ORDER BY datePublication DESC");
+        $requete = $bdd->prepare("SELECT touite.datePublication, user.pseudo, touite.texte, touite.idTouite FROM touite
+                                            INNER JOIN user ON user.idUser = touite.idUser
+                                            WHERE touite.idUser = ? ORDER BY datePublication DESC");
         $requete->bindParam(1, $idUser);
         return self::creerListeTouites($bdd, $requete);
     }
@@ -98,11 +98,11 @@ class TouiteSearch {
         bdd\ConnectionFactory::makeConnection();
         $bdd = bdd\ConnectionFactory::$bdd;
 
-        $requete = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
-                                            INNER JOIN User ON User.idUser = Touite.idUser
-                                            INNER JOIN TagJoint ON TagJoint.idTouite = Touite.idTouite
-                                            INNER JOIN Tag ON Tag.idTag = TagJoint.idTag
-                                            WHERE Tag.tagLibelle = ? ORDER BY datePublication DESC");
+        $requete = $bdd->prepare("SELECT touite.datePublication, user.pseudo, touite.texte, touite.idTouite FROM touite
+                                            INNER JOIN user ON user.idUser = touite.idUser
+                                            INNER JOIN tagjoint ON tagjoint.idTouite = touite.idTouite
+                                            INNER JOIN tag ON tag.idTag = tagjoint.idTag
+                                            WHERE tag.tagLibelle = ? ORDER BY datePublication DESC");
         $requete->bindParam(1, $tagLibelle);
         return self::creerListeTouites($bdd, $requete);
     }

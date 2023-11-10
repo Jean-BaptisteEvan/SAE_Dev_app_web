@@ -67,7 +67,7 @@ class Follow{
             } catch(Exception $e){
                 die('Erreur : '.$e->getMessage());
             } 
-            $sql="SELECT idTag from TAG where tagLibelle = ?;";
+            $sql="SELECT idTag from tag where tagLibelle = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$tag);
             $resultset->execute();
@@ -76,7 +76,7 @@ class Follow{
             } else{
                 $row = $resultset->fetch(PDO::FETCH_NUM);
                 $idtag=$row[0];
-                $sql="INSERT into suivreTag values (?, ?);";
+                $sql="INSERT into suivretag values (?, ?);";
                 $resultset = $connexion->prepare($sql);
                 $idus=$_SESSION['user']['id'];
                 $resultset->bindParam(1,$idus);

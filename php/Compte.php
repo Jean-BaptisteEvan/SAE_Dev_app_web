@@ -47,7 +47,7 @@ class Compte{
         ConnectionFactory::makeConnection();
         $connexion=ConnectionFactory::$bdd;
 
-        $sql="SELECT pseudo from USER;";
+        $sql="SELECT pseudo from user;";
         $resultset = $connexion->prepare($sql);
         $resultset->execute();
         while ($row = $resultset->fetch(PDO::FETCH_NUM)) {
@@ -56,14 +56,14 @@ class Compte{
             }
         }
 
-        $sql="SELECT MAX(idUser) from USER;";
+        $sql="SELECT MAX(idUser) from user;";
         $resultset = $connexion->prepare($sql);
         $resultset->execute();
         while ($row = $resultset->fetch(PDO::FETCH_NUM)) {
             $id = $row[0] + 1;
         }
 
-        $sql="INSERT INTO USER (idUser, userNom, userPrenom, userEmail, pseudo, userPass) VALUES (?, ?, ?, ?, ?, ?);";
+        $sql="INSERT INTO user (idUser, userNom, userPrenom, userEmail, pseudo, userPass) VALUES (?, ?, ?, ?, ?, ?);";
         
         $resultset = $connexion->prepare($sql);
         $resultset->bindParam(1,$id);
@@ -105,7 +105,7 @@ class Compte{
             ConnectionFactory::makeConnection();
             $connexion=ConnectionFactory::$bdd;
             //Selection of the user's informations
-            $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass, admin from USER where pseudo = ?;";
+            $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass, admin from user where pseudo = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$pseudo);
             $resultset->execute();
