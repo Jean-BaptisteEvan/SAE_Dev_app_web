@@ -24,18 +24,9 @@ class Supression{
     /**
     * This function delete a touite from the database and all the links between the tags and the touite
     */
-    static function delete(){
+    static function delete($idtouite){
         session_start();
-        if(!isset($_SESSION['user'])){
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $content = '<form action="" method="post">
-                    <label for="idtouite">Id du touite</label>
-                    <input type="number" name="idtouite" id="idtouite" value="0">
-                    <input type="submit" value="Ajouter">
-                    </form>';
-                echo $content;
-            }elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $idtouite = self::test_input($_POST["idtouite"]);
+        if(isset($_SESSION['user'])){
                 ConnectionFactory::makeConnection();
                 $connexion=ConnectionFactory::$bdd;
                 //Removal of tags attached to the touite
@@ -50,8 +41,9 @@ class Supression{
                 $resultset->bindParam(1,$idtouite);
                 $resultset->execute();
                 echo "<p>Touite suprimé</p>";
-            }
-        } else{
+                $connexion=null;
+        }
+        else{
             echo "<p>Veuillez vous connecter!</p>";
         }
     }

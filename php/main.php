@@ -27,9 +27,15 @@ function afficherTouites(array $l, int $debut, int $fin) {
     }
 }
 
-//echo "<img src='Image/chat.jpg'>";
+echo '<form id="form-add" method="post" action="ajouterImageBD.php" enctype="multipart/form-data">
+        <input type="file" name="inputfile">
+        <input type="text" name="description">
+        <br><button type="submit" name="valider" value="ajout-image-bd">transférer</button>
+    </form>';
 
 // http://localhost/SAE_Dev_app_web/php/main.php?debut=4&&fin=9
 if (isset($_GET['debut']) or isset($_GET['fin'])) {
     afficherTouites($touitesRendered, $_GET['debut'], $_GET['fin']);
+} else {
+    afficherTouites($touitesRendered, 0, 100);
 }
