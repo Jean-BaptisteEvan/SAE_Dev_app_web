@@ -138,17 +138,18 @@ class Compte{
 
     /**
     * This function (log out) disconnects the logged user by deleting the session.
+    * @return int 1 for succes and 0 for error
     */
-    static function deconnexion(){
+    static function deconnexion():int{
+        $a=0;
         if(!isset($_SESSION)){
             session_start();
         }
         if(isset($_SESSION['user'])){
             unset($_SESSION['user']);
-            echo "<p>Déconnexion réussie!</p>";
-        } else{
-            echo "<p>Aucun utilisateur n'est connecté</p>";
+            $a=1;
         }
+        return $a;
     }
 }
 ?>
