@@ -12,9 +12,11 @@ table{
 body{
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 0.5fr;
-    grid-template-rows: 0.75fr repeat(3, 1fr) 0.75fr;
-    grid-column-gap: 0;
-    grid-row-gap: 0;
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 1%;
+    grid-row-gap: 1%;
+    justify-items: center;
+    align-items: center;
     background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
     background-blend-mode: multiply,multiply;
     /*background: linear-gradient(145deg, rgba(6,0,115,1) 0%, rgba(0,64,89,1) 50%, rgba(44,190,54,1) 100%);*/
@@ -24,6 +26,13 @@ body{
 #tags { grid-area: 2 / 2 / 5 / 3; }
 #util { grid-area: 2 / 4 / 5 / 5; }
 
-a{
-    grid-area: 1/3/2/4;
+button{
+    grid-area: 1 / 3 / 2 / 4;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 10px;
+    max-height: 40%;
+    max-width: 60%;
 }

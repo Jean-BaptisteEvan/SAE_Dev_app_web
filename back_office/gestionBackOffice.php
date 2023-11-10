@@ -8,8 +8,10 @@ class gestionBackOffice{
                   <title>Back Office</title>
                   <link href="backoffice.css" rel="stylesheet" />
              </head>';
+        echo '<body>';
         self::affichBestTag($bdd);//methode d'affichage des tags les plus utilisé
         self::affichUtilTend($bdd);//methode d'affichages des utilisateurs les plus suivi
+        echo '</body>';
     }
     static function affichBestTag($bdd){
         $res18 = $bdd->query("Select tag.tagLibelle,count(tagjoint.idTag) 
@@ -39,12 +41,4 @@ class gestionBackOffice{
         }
         echo "</tbody></table>";
     }
-
-    static function affichFromConex(){
-
-    }
-    static function generateConnexion(){
-
-    }
-
 }
