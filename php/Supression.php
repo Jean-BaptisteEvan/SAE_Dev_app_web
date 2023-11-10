@@ -25,6 +25,7 @@ class Supression{
     * This function delete a touite from the database and all the links between the tags and the touite
     */
     static function delete($idtouite){
+        $idtouite = self::test_input($idtouite);
         session_start();
         if(isset($_SESSION['user'])){
                 ConnectionFactory::makeConnection();

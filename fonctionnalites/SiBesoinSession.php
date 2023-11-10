@@ -1,10 +1,8 @@
 <?php
 require_once '../vendor/autoload.php';
-require_once "./Compte.php";
-require_once "./Follow.php";
-use iutnc\fonctionnalites\Compte;
+use iutnc\touiteur\Compte;
 use iutnc\touiteur\Supression;
-use iutnc\fonctionnalites\Follow;
+use iutnc\touiteur\Follow;
 use iutnc\touiteur\Note;
 use iutnc\touiteur\Narcissique;
 

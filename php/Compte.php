@@ -25,6 +25,11 @@ class Compte{
     * This function (create account) creates a user in the database if the nickname entered in the form is unique.
     */
     static function creationCompte($nom, $prenom, $email, $pseudo, $mdp){
+        $nom = self::test_input($nom);
+        $prenom = self::test_input($prenom);
+        $email = self::test_input($email);
+        $pseudo = self::test_input($pseudo);
+        $mdp = self::test_input($mdp);
         $truemdp=password_hash($mdp, PASSWORD_DEFAULT,['cost'=> 12]);
         ConnectionFactory::makeConnection();
         $connexion=ConnectionFactory::$bdd;
@@ -65,38 +70,40 @@ class Compte{
     * This function (log in) creates a session with the user's informations if he entered the right nickname and password.
     */
     static function connexion($pseudo, $mdp){
-            session_start();
-            $connecte=isset($_SESSION['user']);
-            ConnectionFactory::makeConnection();
-            $connexion=ConnectionFactory::$bdd;
-            //Selection of the user's informations
-            $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass, admin from USER where pseudo = ?;";
-            $resultset = $connexion->prepare($sql);
-            $resultset->bindParam(1,$pseudo);
-            $resultset->execute();
-            if($resultset->rowCount() === 0){
-                throw new Exception('Pseudo inexistant!');
-            } else{
-                $row = $resultset->fetch(PDO::FETCH_NUM);
-                if (password_verify($mdp, $row[5])){
-                    $id = $row[0];
-                    $nom = $row[1];
-                    $prenom = $row[2];
-                    $mail = $row[3];
-                    $admin=$row[6];
-                    //Adding the user's informations to the session
-                    $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo, 'admin' => $admin];                
-                    $_SESSION['user'] = $tabUser;
-                    //To be sure that the $_SESSION is really created
-                    $connecte=isset($_SESSION['user']);
-                    if($connecte){
-                        echo '<p>Connexion réussie!</p>';
-                    }
-                } else{
-                    throw new Exception('Mot de passe invalide');
+        $pseudo = self::test_input($pseudo);
+        $mdp = self::test_input($mdp);
+        session_start();
+        $connecte=isset($_SESSION['user']);
+        ConnectionFactory::makeConnection();
+        $connexion=ConnectionFactory::$bdd;
+        //Selection of the user's informations
+        $sql="SELECT idUser, userNom, userPrenom, userEmail, pseudo, userPass, admin from USER where pseudo = ?;";
+        $resultset = $connexion->prepare($sql);
+        $resultset->bindParam(1,$pseudo);
+        $resultset->execute();
+        if($resultset->rowCount() === 0){
+            throw new Exception('Pseudo inexistant!');
+        } else{
+            $row = $resultset->fetch(PDO::FETCH_NUM);
+            if (password_verify($mdp, $row[5])){
+                $id = $row[0];
+                $nom = $row[1];
+                $prenom = $row[2];
+                $mail = $row[3];
+                $admin=$row[6];
+                //Adding the user's informations to the session
+                $tabUser = ['id' => $id, 'nom' => $nom, 'prenom' => $prenom, 'email' => $mail, 'pseudo' => $pseudo, 'admin' => $admin];                
+                $_SESSION['user'] = $tabUser;
+                //To be sure that the $_SESSION is really created
+                $connecte=isset($_SESSION['user']);
+                if($connecte){
+                    echo '<p>Connexion réussie!</p>';
                 }
+            } else{
+                throw new Exception('Mot de passe invalide');
             }
-            $connexion=null;
+        }
+        $connexion=null;
     }
 
     /**
