@@ -23,6 +23,7 @@ class Compte{
 
     /**
     * This function (create account) creates a user in the database if the nickname entered in the form is unique.
+    * @return int 1 for succes and 0 for error
     */
     static function creationCompte():int{
         $a=0;
@@ -76,13 +77,13 @@ class Compte{
         $connexion=null;
 
         $a=1;
-        echo "<p>Utilisateur créer avec succès!</p>";
     }
     return $a;
     }
 
     /**
     * This function (log in) creates a session with the user's informations if he entered the right nickname and password.
+    * @return int 1 for succes and 0 for error
     */
     static function connexion():int{
         $a=0;
@@ -112,7 +113,9 @@ class Compte{
                 throw new Exception('Pseudo inexistant!');
             } else{
                 $row = $resultset->fetch(PDO::FETCH_NUM);
-                if (password_verify($mdp, $row[5])){
+                if (!password_verify($mdp, $row[5])){
+                    throw new Exception('Mot de passe invalide');
+                } else{
                     $id = $row[0];
                     $nom = $row[1];
                     $prenom = $row[2];
@@ -125,10 +128,7 @@ class Compte{
                     $connecte=isset($_SESSION['user']);
                     if($connecte){
                         $a=1;
-                        echo '<p>Connexion réussie!</p>';
                     }
-                } else{
-                    throw new Exception('Mot de passe invalide');
                 }
             }
             $connexion=null;
