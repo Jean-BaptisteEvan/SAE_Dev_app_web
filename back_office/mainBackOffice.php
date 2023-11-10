@@ -16,7 +16,7 @@ echo '<head>
                   <link href="../css/backoffice.css" rel="stylesheet" />
              </head>';
 if(isset($_SESSION['user'])){
-    if($_SESSION['user']['admin'] == 1){
+    if($_SESSION['user']['admin'] == 1){//test de si l'utilisateur a les droits d'administrateur
         ConnectionFactory::makeConnection();
         $bdd = ConnectionFactory::$bdd;
         gestionBackOffice::genererBackOffice($bdd);

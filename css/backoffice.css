@@ -1,15 +1,6 @@
-table, th, td {
-    border: 1px solid black;
-}
-td{
-    width :50%;
-    text-align: center;
-}
-table{
-    width: 90%;
-    height: 80%;
-}
-
+table, th, td {border: 1px solid black;}
+td{width :50%;text-align: center;}
+table{width: 90%;height: 80%;}
 body{
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 0.5fr;
@@ -23,7 +14,6 @@ body{
     /*background: linear-gradient(145deg, rgba(6,0,115,1) 0%, rgba(0,64,89,1) 50%, rgba(44,190,54,1) 100%);*/
     color:white;
 }
-
 #deco{
      grid-area: 1 / 3 / 2 / 4;
      line-height: 2.5;
