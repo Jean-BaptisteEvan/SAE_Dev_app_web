@@ -18,12 +18,24 @@ foreach ($listeTouites as $k => $v) {
 }
 
 function afficherTouites(array $l, int $debut, int $fin) {
+    // In case we exceed the length of the array
+    if ($fin > count($l)) {
+        $fin = count($l);
+    }
     for ($i = $debut; $i < $fin; $i++) {
         echo $l[$i];
     }
 }
 
+echo '<form id="form-add" method="post" action="ajouterImageBD.php" enctype="multipart/form-data">
+        <input type="file" name="inputfile">
+        <input type="text" name="description">
+        <br><button type="submit" name="valider" value="ajout-image-bd">transférer</button>
+    </form>';
+
 // http://localhost/SAE_Dev_app_web/php/main.php?debut=4&&fin=9
 if (isset($_GET['debut']) or isset($_GET['fin'])) {
     afficherTouites($touitesRendered, $_GET['debut'], $_GET['fin']);
+} else {
+    afficherTouites($touitesRendered, 0, 100);
 }

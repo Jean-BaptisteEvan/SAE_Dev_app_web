@@ -30,13 +30,16 @@ class TouiteSearch {
             $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
 
             // Add the tags related to this touite
-            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc FROM Tag
-                                                INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
-                                                WHERE TagJoint.idTouite = ?");
+            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
+	                                            INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
+                                                INNER JOIN imagejointe ON imagejointe.idTouite = tagjoint.idTouite
+	                                            INNER JOIN Image ON image.idImage = imagejointe.idimage
+  	                                            WHERE TagJoint.idTouite = ?");
             $requete2->bindParam(1, $ligne1[3]);
             $requete2->execute();
             while($ligne2=$requete2->fetch()) {
                 $touite->ajouterTag(new Tag($ligne2[0], $ligne2[1]));
+                $touite->ajouterImage($ligne2[2], $ligne2[3]);
             }
             $requete2->closeCursor();
 
@@ -67,13 +70,16 @@ class TouiteSearch {
             $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
 
             // Add the tags related to this touite
-            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc FROM Tag
-                                                INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
-                                                WHERE TagJoint.idTouite = ?");
+            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
+	                                            INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
+                                                INNER JOIN imagejointe ON imagejointe.idTouite = tagjoint.idTouite
+	                                            INNER JOIN Image ON image.idImage = imagejointe.idimage
+  	                                            WHERE TagJoint.idTouite = ?");
             $requete2->bindParam(1, $ligne1[3]);
             $requete2->execute();
             while($ligne2=$requete2->fetch()) {
                 $touite->ajouterTag(new Tag($ligne2[0], $ligne2[1]));
+                $touite->ajouterImage($ligne2[2], $ligne2[3]);
             }
             $requete2->closeCursor();
 
@@ -106,13 +112,16 @@ class TouiteSearch {
             $touite = new touiteur\Touite($ligne1[0], $ligne1[1], $ligne1[2]);
 
             // Add the tags related to this touite
-            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc FROM Tag
-                                                INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
-                                                WHERE TagJoint.idTouite = ?");
+            $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
+	                                            INNER JOIN TagJoint ON TagJoint.idTag = Tag.idTag
+                                                INNER JOIN imagejointe ON imagejointe.idTouite = tagjoint.idTouite
+	                                            INNER JOIN Image ON image.idImage = imagejointe.idimage
+  	                                            WHERE TagJoint.idTouite = ?");
             $requete2->bindParam(1, $ligne1[3]);
             $requete2->execute();
             while($ligne2=$requete2->fetch()) {
                 $touite->ajouterTag(new Tag($ligne2[0], $ligne2[1]));
+                $touite->ajouterImage($ligne2[2], $ligne2[3]);
             }
             $requete2->closeCursor();
 

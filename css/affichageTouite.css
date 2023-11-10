@@ -1,3 +1,7 @@
+html {
+    background: lightslategray;
+}
+
 ul {
     border: 3px double black;
     width: 30%;
@@ -10,8 +14,4 @@ ul {
 
 #tag {
     color: blue;
-}
-
-html {
-    background: lightslategray;
 }

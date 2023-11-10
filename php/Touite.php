@@ -16,7 +16,7 @@ class Touite {
     // these two are used for the long version of the touite
     private array $listeTags;
     private int $note;
-    private Image $image;
+    private null | Image $image;
 
     /**
      * @param string $posteur the user who created the touite
@@ -30,7 +30,7 @@ class Touite {
 
         $this->listeTags = array();
         $this->note = -1;
-        $this->image = new Image("https://chat.png", "miaou");
+        $this->image = null;
     }
 
     /**
@@ -40,6 +40,16 @@ class Touite {
      */
     public function ajouterTag(Tag $tag) {
         array_push($this->listeTags, $tag);
+    }
+
+    /**
+     * Change the default null value of image to a real picture if needed
+     * @param $chemin string the path to the picture
+     * @param $description string the description of the picture in case it doesn't show up
+     * @return void
+     */
+    public function ajouterImage(string $chemin, string $description) {
+        $this->image = new Image($chemin, $description);
     }
 
     /**
@@ -78,9 +88,9 @@ class Touite {
     }
 
     /**
-     * @return Image
+     * @return null | Image
      */
-    public function getImage(): Image {
+    public function getImage(): null | Image {
         return $this->image;
     }
 }
