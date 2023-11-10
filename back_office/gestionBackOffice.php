@@ -39,4 +39,12 @@ class gestionBackOffice{
         }
         echo "</tbody></table>";
     }
+
+    static function affichFromConex(){
+
+    }
+    static function generateConnexion(){
+
+    }
+
 }
