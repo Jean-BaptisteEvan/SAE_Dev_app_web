@@ -12,6 +12,10 @@ class MurUtilisateur{
         bdd\ConnectionFactory::makeConnection();
         $bdd = bdd\ConnectionFactory::$bdd;
 
+        if(isset($_GET['action']) and $_GET['action']==="narc"){
+            Narcissique::displayUsers();
+            Narcissique::displayTouiteNote();
+        }
         /*
         * On récupère la liste des utilisateurs suivis par l'utilisateur courant
         */

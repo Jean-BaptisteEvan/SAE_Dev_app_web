@@ -44,6 +44,7 @@
 
 <?php
 
+use iutnc\touiteur\Note;
 use iutnc\touiteur\TouiteRenderer;
 use iutnc\touiteur\TouiteSearch;
 
@@ -80,7 +81,11 @@ if (isset($_GET['touitesPostedBy'])) {
 $touitesRendered = array();
 foreach ($listeTouites as $k => $v) {
     array_push($touitesRendered, TouiteRenderer::renderLong($v));
-    TouiteRenderer::renderLong($v);
+}
+
+if (isset($_POST['note'])) {
+    Note::noter($_POST['idTouite'], $_POST['note']);
+    header("Refresh:0");
 }
 
 // If we want to display a specific amount of touites if there are too many

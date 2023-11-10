@@ -60,12 +60,10 @@ class Note{
                 $resultset->bindParam(3,$note);
                 $resultset->execute();
                 echo "<p>Touite noté</p>";
-            }else{
-                echo "<p>Impossible de noter le touite</p>";
             }
             $connexion=null;
-        }else{
-            echo "<p>Veuillez vous connecter!</p>";
+        } else {
+            echo "<script>alert('Veuillez vous connecter!')</script>";
         }
     }
 
