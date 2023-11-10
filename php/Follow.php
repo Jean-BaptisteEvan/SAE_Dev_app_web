@@ -2,6 +2,7 @@
 namespace iutnc\touiteur;
 require_once '../vendor/autoload.php';
 use \PDO;
+use iutnc\touiteur\bdd\ConnectionFactory;
 use \Exception;
 class Follow{
 
@@ -27,11 +28,8 @@ class Follow{
             if($pseudo === $_SESSION['user']['pseudo']){
                 throw new Exception('Impossible de se suivre');
             }
-            try{
-                $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
-            } catch(Exception $e){
-                die('Erreur : '.$e->getMessage());
-            } 
+            ConnectionFactory::makeConnection();
+            $connexion=ConnectionFactory::$bdd;
             $sql="SELECT idUser from user where pseudo = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$pseudo);
@@ -62,11 +60,8 @@ class Follow{
         $tag = self::test_input($tag);
         session_start();
         if(isset($_SESSION['user'])){
-            try{
-                $connexion = new PDO('mysql:host=localhost;dbname=touiteur', 'root',''); 
-            } catch(Exception $e){
-                die('Erreur : '.$e->getMessage());
-            } 
+            ConnectionFactory::makeConnection();
+            $connexion=ConnectionFactory::$bdd;
             $sql="SELECT idTag from tag where tagLibelle = ?;";
             $resultset = $connexion->prepare($sql);
             $resultset->bindParam(1,$tag);
