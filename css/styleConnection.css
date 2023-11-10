@@ -96,7 +96,7 @@ input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
 
 
 
-input[type=text] {
+input[type=text], input[type=password] {
     background-color: #f6f6f6;
     color: #0d0d0d;
     padding: 15px 32px;
