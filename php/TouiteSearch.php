@@ -36,7 +36,7 @@ class TouiteSearch {
 
             $date = date($format, $date);
 
-            $touite = new touiteur\Touite($date, $ligne1[1], $ligne1[2]);
+            $touite = new touiteur\Touite($date, $ligne1[1], $ligne1[2], $ligne1[3]);
 
             // Add the tags related to this touite
             $requete2 = $bdd->prepare("SELECT Tag.tagLibelle, Tag.tagDesc, Image.chemin, Image.imgDesc FROM Tag
@@ -70,7 +70,6 @@ class TouiteSearch {
         $requete = $bdd->prepare("SELECT Touite.datePublication, User.pseudo, Touite.texte, Touite.idTouite FROM Touite
                                             INNER JOIN User ON User.idUser = Touite.idUser
                                             ORDER BY datePublication DESC");
-
         return self::creerListeTouites($bdd, $requete);
     }
 

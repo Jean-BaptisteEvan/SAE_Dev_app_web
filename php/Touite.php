@@ -9,6 +9,8 @@ require_once '../vendor/autoload.php';
  */
 class Touite {
 
+    private int $id;
+
     private string $date;
     private string $posteur;
     private string $texte;
@@ -19,17 +21,19 @@ class Touite {
     private null | Image $image;
 
     /**
-     * @param string $posteur the user who created the touite
+     * @param string $date the date the touite was posted
+     * @param string $posteur the creator of the touite
      * @param string $texte the text of the touite
-     * @param string $date the publication date of the touite
+     * @param int $id the id of the touite
      */
-    public function __construct(string $date, string $posteur, string $texte/*, int $note*/) {
+    public function __construct(string $date, string $posteur, string $texte, int $id) {
+        $this->id = $id;
         $this->date = $date;
         $this->posteur = $posteur;
         $this->texte = $texte;
 
         $this->listeTags = array();
-        $this->note = -1;
+        $this->note = Note::getMoyenne($this->id);
         $this->image = null;
     }
 
@@ -92,5 +96,12 @@ class Touite {
      */
     public function getImage(): null | Image {
         return $this->image;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int {
+        return $this->id;
     }
 }
