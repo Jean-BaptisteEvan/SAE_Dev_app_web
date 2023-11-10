@@ -18,11 +18,11 @@ class TouiteRenderer {
         // Add the tags
         $repTags = "";
         foreach ($touite->getListeTags() as $k => $v) {
-            $repTags .= "#{$v->getLibelle()} ";
+            $repTags .= "<a id='tag' href='http://localhost/SAE_Dev_app_web/php/Dispacheur.php?touitesTagedBy={$v->getLibelle()}'>#{$v->getLibelle()}</a> ";
         }
 
-        return "<ul class='search'>par <a id='posteur'>{$touite->getPosteur()}</a>
-                <dd><a id='tag'>$repTags</a> {$touite->getTexte()}</dd>
+        return "<ul class='search'>par <a id='posteur' href='http://localhost/SAE_Dev_app_web/php/Dispacheur.php?touitesPostedBy={$touite->getIdPosteur()}'>{$touite->getPosteur()}</a>
+                <dd>$repTags {$touite->getTexte()}</dd>
                 <br>
                 <dd>{$touite->getDate()}</dd>
                 </ul>";
@@ -37,10 +37,10 @@ class TouiteRenderer {
         // Add the tags
         $repTags = "";
         foreach ($touite->getListeTags() as $k => $v) {
-            $repTags .= "#{$v->getLibelle()} ";
+            $repTags .= "<a id='tag' href='http://localhost/SAE_Dev_app_web/php/Dispacheur.php?touitesTagedBy={$v->getLibelle()}'>#{$v->getLibelle()}</a> ";
         }
 
-        $res = "<ul class='search'>par <a id='posteur'>{$touite->getPosteur()}</a>
+        $res = "<ul class='search'>par <a id='posteur' href='http://localhost/SAE_Dev_app_web/php/Dispacheur.php?touitesPostedBy={$touite->getIdPosteur()}'>{$touite->getPosteur()}</a>
                 <dd><a id='tag'>$repTags</a> {$touite->getTexte()}</dd>";
 
         // If there is a piture associated with the touite

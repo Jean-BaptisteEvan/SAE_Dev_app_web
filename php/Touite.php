@@ -10,6 +10,7 @@ require_once '../vendor/autoload.php';
 class Touite {
 
     private int $id;
+    private int $idPosteur;
 
     private string $date;
     private string $posteur;
@@ -26,8 +27,9 @@ class Touite {
      * @param string $texte the text of the touite
      * @param int $id the id of the touite
      */
-    public function __construct(string $date, string $posteur, string $texte, int $id) {
+    public function __construct(string $date, string $posteur, string $texte, int $id, int $idPosteur) {
         $this->id = $id;
+        $this->idPosteur = $idPosteur;
         $this->date = $date;
         $this->posteur = $posteur;
         $this->texte = $texte;
@@ -48,12 +50,14 @@ class Touite {
 
     /**
      * Change the default null value of image to a real picture if needed
-     * @param $chemin string the path to the picture
-     * @param $description string the description of the picture in case it doesn't show up
+     * @param $chemin string | null the path to the picture
+     * @param $description string | null the description of the picture in case it doesn't show up
      * @return void
      */
-    public function ajouterImage(string $chemin, string $description) {
-        $this->image = new Image($chemin, $description);
+    public function ajouterImage(string | null $chemin, string | null $description) {
+        if (!(is_null($chemin) or is_null($description))) {
+            $this->image = new Image($chemin, $description);
+        }
     }
 
     /**
@@ -103,5 +107,12 @@ class Touite {
      */
     public function getId(): int {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdPosteur(): int {
+        return $this->idPosteur;
     }
 }

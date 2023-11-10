@@ -10,7 +10,7 @@ use iutnc\touiteur\TouiteSearch;
 
 require_once "../vendor/autoload.php";
 
-$listeTouites = TouiteSearch::getAllTouites();
+$listeTouites = TouiteSearch::getTouitesTagedBy("complot");
 
 $touitesRendered = array();
 foreach ($listeTouites as $k => $v) {

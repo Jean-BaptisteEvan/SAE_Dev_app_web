@@ -41,20 +41,58 @@
 
 
 
+
 <?php
+
 use iutnc\touiteur\TouiteRenderer;
 use iutnc\touiteur\TouiteSearch;
 
 require_once "../vendor/autoload.php";
 
-$listeTouites = TouiteSearch::getAllTouites();
+/**
+ * Display a specific amount of touites from an array
+ * @param array $l the array of touites in HTML format
+ * @param int $debut the first touite displayed in the array
+ * @param int $fin the last touite displayed in the array
+ * @return void
+ */
+function afficherTouites(array $l, int $debut, int $fin) {
+    // In case we exceed the length of the array
+    if ($fin > count($l)) {
+        $fin = count($l);
+    }
+    for ($i = $debut; $i < $fin; $i++) {
+        echo $l[$i];
+    }
+}
+
+// Display all touites, all touites taged by something or made by someone
+// used when the user click on a username or a tag
+if (isset($_GET['touitesPostedBy'])) {
+    $listeTouites = TouiteSearch::getTouitesPostedBy($_GET['touitesPostedBy']);
+} elseif (isset($_GET['touitesTagedBy'])) {
+    $listeTouites = TouiteSearch::getTouitesTagedBy($_GET['touitesTagedBy']);
+} else {
+    // Default
+    $listeTouites = TouiteSearch::getAllTouites();
+}
 
 $touitesRendered = array();
 foreach ($listeTouites as $k => $v) {
     array_push($touitesRendered, TouiteRenderer::renderLong($v));
-    echo TouiteRenderer::renderLong($v);
+    TouiteRenderer::renderLong($v);
+}
 
-} ?>
+// If we want to display a specific amount of touites if there are too many
+// example : http://localhost/SAE_Dev_app_web/php/Dispacheur.php?debut=4&&fin=9
+if (isset($_GET['debut']) or isset($_GET['fin'])) {
+    afficherTouites($touitesRendered, $_GET['debut'], $_GET['fin']);
+} else {
+    // print every touite, code not clean, should find max and min methods
+    afficherTouites($touitesRendered, 0, 1000);
+}
+
+?>
 
 <div class="PartieDroite" > <img src="Image/Logotouiteur-removebg-preview.png"></div>
 
