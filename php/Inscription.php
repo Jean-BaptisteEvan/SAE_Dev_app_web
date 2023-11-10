@@ -22,7 +22,7 @@
 
         <form>
             <input type="text" id="pseudo" class="fadeIn second" name="login" placeholder="pseudo">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
             <input type="text" id="Prenom" class="fadeIn third" name="login" placeholder="Prenom">
             <input type="text" id="Nom" class="fadeIn third" name="login" placeholder="Nom">
             <input type="text" id="Email" class="fadeIn third" name="login" placeholder="Email">
