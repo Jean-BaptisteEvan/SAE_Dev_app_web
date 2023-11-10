@@ -1,7 +1,4 @@
 Vincent : 6, 7, 9, 10, 13, 14, 15, déconnexion, autoloader
 Evan : 8,11,17,18,19
-Corentin : 1, 2, 3, 4, 5
-Felicien : HTML / CSS, 12
-
-à faire : 
-Tâches de qualité : 16
+Corentin : 1, 2, 3, 4, 5, 16
+Felicien : HTML / CSS, 12, aide pour fonction
