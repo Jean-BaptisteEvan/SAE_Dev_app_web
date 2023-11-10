@@ -1,6 +1,10 @@
 <?php
 namespace iutnc\touiteur;
 require_once '../vendor/autoload.php';
+use iutnc\touiteur\TouiteRenderer;
+use iutnc\touiteur\TouiteSearch;
+
+
 
 class MurUtilisateur{
 
@@ -52,15 +56,33 @@ class MurUtilisateur{
 
 
 
+            bdd\ConnectionFactory::makeConnection();
+            $bdd = bdd\ConnectionFactory::$bdd;
 
                 foreach($listeSuivie as $suivie){
+
                     if($ligne['idUser'] == $suivie){
-                        echo "<div class='touite'><div class='touite-header'><div class='touite-date'>".$ligne['datePublication']."</div></div><div class='touite-text'>".$ligne['texte']."</div></div>";
+
+                        $requete1 = $bdd->prepare("SELECT  User.pseudo FROM Touite
+                                            INNER JOIN User ON User.idUser = Touite.idUser Where User.idUser = ?");
+                        $requete1->bindParam(1, $ligne['idUser']);
+                        $requete1->execute();
+                        $ligne1=$requete1->fetch();
+                        $touite =new Touite($ligne['datePublication'], $ligne1['pseudo'], $ligne['texte']);
+                        echo TouiteRenderer::renderCourt($touite);
                     }
                 }
                 foreach($listeTouiteTag as $touiteTag){
+
                     if($ligne['idTouite'] == $touiteTag){
-                        echo "<div class='touite'><div class='touite-header'><div class='touite-date'>".$ligne['datePublication']."</div></div><div class='touite-text'>".$ligne['texte']."</div></div>";
+                        $requete1 = $bdd->prepare("SELECT  User.pseudo FROM Touite
+                                            INNER JOIN User ON User.idUser = Touite.idUser Where User.idUser = ?");
+                        $requete1->bindParam(1, $ligne['idUser']);
+                        $requete1->execute();
+                        $ligne1=$requete1->fetch();
+
+                            $touite =new Touite($ligne['datePublication'],$ligne1['pseudo'], $ligne['texte']);
+                            echo TouiteRenderer::renderCourt($touite);
                     }
                 }
             }

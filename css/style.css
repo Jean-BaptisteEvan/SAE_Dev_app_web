@@ -1,20 +1,38 @@
 
+header{
+    border: 1px solid silver;
+
+    margin-left: max(15%, min(90px));
+    width: 60%;
+    height: 10%;
+    display: block;
+}
+.hdr{
+    display: inline-block;
+
+
+
+
+
+
+    padding-right: 12%;
+    padding-left: 12%;
+    padding-top: 1%;
+
+
+
+}
+
 body {
     font-family: "Lato", sans-serif;
     background-color: #222729;
-    margin-left: 5%;
-    padding: 5%;
+    margin-top: 0;
+    margin-left: 0;
     width: 100%;
     height: 100%;
-}
-
-.imgheader
-{
-
-    margin-left: 10px;
-
 
 }
+
 .imgheaderhome
 {
     float: unset;
@@ -39,11 +57,11 @@ li{
     color: silver;
 }
 
-nav {
+.menuGauche {
     background-color: #222729;
     border-right: 1px solid silver;
     overflow: hidden;
-    position: fixed;
+
     top: 0;
     margin: 0;
     padding: 0;
@@ -51,6 +69,26 @@ nav {
     height: 100%;
     z-index: 1000;
     display: block;
+    min-width: 60px;
+    position: fixed;
+    left: max(5%,min(30px));
+
+}
+.menuHaut{
+    color : silver;
+    overflow: hidden;
+    top: 0;
+
+    padding: 0;
+    width: 90%;
+    height: 20%;
+    min-height: 100px;
+    z-index: 1000;
+    display: block;
+    text-align: center;
+    border-left: silver;
+
+
 }
 
 .container {
@@ -58,7 +96,6 @@ nav {
 
     align-items: center;
     text-align: left;
-    padding: 0;
     margin: 0;
     line-height: 500%;
     padding-right: 15%;
@@ -66,14 +103,13 @@ nav {
 
 }
 .contain a {
+
     text-decoration: none;
     font-size: 20px;
     color: white;
     border-radius: 20px;
     background-color: #1a8cff;
     display: block;
-    transition: 0.3s;
-    padding: 0;
     margin: 0;
     padding-left: 10%;
     padding-right: 10%;
@@ -113,8 +149,8 @@ h3{
 
     color: silver;
     margin-bottom: 0;
+    margin-left: max(15%, min(90px));
 
-    margin-left: 10%;
 
 }
 
@@ -124,6 +160,30 @@ h3{
 
 #tag {
     color: blue;
+}
+.PartieDroite{
+    width: max(24.9%, min(90px));
+    height: 100%;
+    position: fixed;
+
+
+    top: 0;
+    right: 0;
+
+    border-left: 1px solid silver;
+    overflow: hidden;
+    z-index: 1000;
+    display: block;
+    min-width: 60px;
+
+
+}
+.PartieDroite>img{
+    width: 100%;
+    height: 20%;
+    margin: 0;
+    padding: 0;
+
 }
 
 
