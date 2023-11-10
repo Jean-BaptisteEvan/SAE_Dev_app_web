@@ -28,8 +28,16 @@ class Supression{
         $idtouite = self::test_input($idtouite);
         session_start();
         if(isset($_SESSION['user'])){
-                ConnectionFactory::makeConnection();
-                $connexion=ConnectionFactory::$bdd;
+            ConnectionFactory::makeConnection();
+            $connexion=ConnectionFactory::$bdd;
+
+            $sql="SELECT idUser from touite where idTouite = ?;";
+            $resultset = $connexion->prepare($sql);
+            $resultset->bindParam(1,$idtouite);
+            $resultset->execute();
+            $user = $resultset->fetch(PDO::FETCH_NUM);
+            //if the user logged in is the sender of the touite then we can delete it
+            if($user === $_SESSION['user']['id']){
                 //Removal of tags attached to the touite
                 $sql="DELETE from tagjoint where idTouite = ?;";
                 $resultset = $connexion->prepare($sql);
@@ -42,7 +50,10 @@ class Supression{
                 $resultset->bindParam(1,$idtouite);
                 $resultset->execute();
                 echo "<p>Touite suprimé</p>";
-                $connexion=null;
+            }else{
+                echo "<p>Vous n'êtes pas l'utilisateur qui à poster le touite</p>";
+            }
+            $connexion=null;
         }
         else{
             echo "<p>Veuillez vous connecter!</p>";
